@@ -1,0 +1,156 @@
+#header {
+  background: #109C10;
+  width: 800px;
+  height: 106px;
+}
+
+#contenido {
+  background: #fff;
+  border-style: solid;
+  border-width: 1px;
+  padding: 10px;
+  overflow: hidden;
+}
+
+#contenedor {
+	background: #109C10;
+	width: 780px;
+	padding-top: 20px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+#footer {
+	background: #109C10;
+	clear: left;
+	width: 800px;
+	height: 100px;
+	padding-top: 20px;
+}
+
+.pie {
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+  font-size: 13px;
+  text-align: center;
+  padding:5px;
+}
+
+
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	background: #109C10;
+}
+
+#logo{
+	position : absolute;
+	top : 63px;
+	left : 198px;
+	z-index : 50;
+	width: 38px;
+	height: 35px;
+}
+
+#navigation{
+	position : absolute;
+	top : 112px;
+	left : 4px;
+	width : 172px;
+	height: 137px;
+	visibility: hidden;
+
+}     
+ 
+td {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #333333;
+}
+
+
+form {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+
+input {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+
+textarea {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+
+select {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+
+ul {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	list-style-type: square;
+	list-style-position: outside;
+}
+
+li {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+
+ol {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	list-style-type: decimal;
+	list-style-position: outside;
+}
+
+.small {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 9px;
+}
+
+.big {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 18px;
+}
+
+.bodystyle {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+
+.box1 {
+	padding: 3px;
+	border-width: thin;
+	border-style: solid;
+	border-color: #CCCCCC #666666 #666666 #CCCCCC;
+}
+
+.box2 {
+	border-width: 3px;
+	border-style: solid;
+	padding: 5px;
+}
+
+.contexto {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.contexto_link {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  color:black;
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+  text-decoration: none;
+}
+
+/* add zoom:1 to overflow:hidden */
+#contenido {zoom:1;}

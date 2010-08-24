@@ -1,0 +1,75 @@
+#col_derecha {
+	float: left;
+	width: 570px;
+}
+
+#titulo_pagina, #subtitulo_pagina {
+	color: black;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	padding-bottom: 15px;
+}
+
+#subtitulo_pagina {
+	font-size: 14px;
+}
+
+#titulo_pagina {
+	font-size: 16px;
+}
+
+.clean-ok {
+	border:solid 1px #349534; 
+	background:#C9FFCA;
+	color:#008000;
+	font-weight:bold;
+	padding:4px;
+	text-align:center;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.clean-error {
+	border:solid 1px #CC0000; 
+	background:#F7CBCA;
+	color:#CC0000;
+	font-weight:bold;
+	padding:4px;
+	text-align:center;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.texto {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
+
+.subtitulo {
+		font-family: Arial, Helvetica, sans-serif;
+		font-size: 12px;
+		font-weight: bold;
+}
+
+.textoError {
+		color: red;
+		font-family: Arial, Helvetica, sans-serif;
+		font-weight: normal;
+		font-size: 12px;
+}
+
+.linea {
+		background-color: #878787;
+}
+
+.tip {
+		font-family: Tahoma, Arial, sans-serif;
+		font-size: 11px;
+  font-weight: normal
+}
+
+.fecha {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	font-weight: bold; 
+}
+
+/* add display:inline to floated elements */
+#col_derecha {display:inline;}

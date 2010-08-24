@@ -1,0 +1,35 @@
+.infoBox, .exitoBox, .advertenciaBox, .errorBox
+{
+	border: 1px solid;
+	margin: 10px 0px;
+	padding: 15px 10px 15px 50px;
+	background-repeat: no-repeat;
+	background-position: 10px center;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	font-weight: bold;
+}
+.infoBox
+{
+	color: #00529B;
+	background-color: #BDE5F8;
+	background-image: url('/buyigostores/img/iconos/info.png');
+}
+.exitoBox
+{
+	color: #4F8A10;
+	background-color: #DFF2BF;
+	background-image:url('/buyigostores/img/iconos/exito.png');
+}
+.advertenciaBox
+{
+	color: #9F6000;
+	background-color: #FEEFB3;
+	background-image: url('/buyigostores/img/iconos/advertencia.png');
+}
+.errorBox
+{
+	color: #D8000C;
+	background-color: #FFBABA;
+	background-image: url('/buyigostores/img/iconos/error.png');
+}

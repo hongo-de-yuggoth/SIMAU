@@ -1,0 +1,21 @@
+#barra_menu_equipo ul {
+	padding-bottom: 35px;
+	padding-top: 5px;
+	margin:0; 
+}
+#barra_menu_equipo ul li {
+	display:inline; 
+	list-style-type: none;
+	font-weight: bold;
+	font-size: 13px;
+}
+#barra_menu_equipo ul li a:link, #barra_menu_equipo ul li a:visited { 
+	background-color: green; 
+	color: white;
+	text-decoration:none; 
+	padding: 5px;
+}
+#barra_menu_equipo ul li a:hover { 
+	background-color: #C1D5B3; 
+	color:white; 
+}

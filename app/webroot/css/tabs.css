@@ -1,0 +1,47 @@
+/* Style for Usual tabs */
+.usual {
+  background:white;
+  color:#111;
+  padding:15px 20px;
+  width:500px;
+  margin:8px auto;
+}
+.usual li { list-style:none; float:left; }
+.usual ul a {
+  display:block;
+  padding:6px 10px;
+  text-decoration:none!important;
+  margin:1px;
+  margin-left:0;
+  font:10px Verdana;
+  color:#000;
+  background:#AFDEB1;
+}
+.usual ul a:hover {
+  color:#FFF;
+  background:#4E7C50;
+  }
+.usual ul a.selected {
+  margin-bottom:0;
+  color:#000;
+  background:#8EBB99;
+  
+  cursor:default;
+  }
+.usual div {
+  padding:10px 10px 8px 10px;
+  *padding-top:3px;
+  *margin-top:-15px;
+  clear:left;
+  background:#8EBB99;
+  font:10pt Georgia;
+}
+.usual div a { color:#000; font-weight:bold; }
+
+
+
+/* add display:inline to floated elements */
+.usual li {display:inline;}
+
+/* fix negative margins */
+.usual div {position:relative; zoom:1;}

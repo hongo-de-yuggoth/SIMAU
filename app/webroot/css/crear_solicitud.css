@@ -1,0 +1,3 @@
+#definiciones div.slides { padding:8px; }
+#definiciones div.slides h4 { margin:4px 0px 0px 0px; height:24px; background:aliceBlue none repeat scroll 0 0; border:1px #d3d3d3 solid; -moz-border-radius:0.5ex; -webkit-border-radius:0.5ex; padding:4px 8px 0px 8px; cursor:pointer; }
+#definiciones div.slides div.content { border:1px #d3d3d3 solid; -moz-border-radius:0.5ex; -webkit-border-radius:0.5ex; border-top:0px; padding:8px 4px 4px 4px; }
