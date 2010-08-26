@@ -259,7 +259,7 @@ echo $javascript->link('solicitudes/ver');
 						<tr><td height="10" colspan="4"/></tr>
 						
 						<tr align="left">
-							<td colspan="4"><div id='botones_solucion' align="center" style='display:none;'><input id='boton_guardar' type="button" value="Guardar datos"/> &nbsp;&nbsp;&nbsp;&nbsp;<input id='boton_solucionar' type="button" value="Dar por solucionado"/></div></td>
+							<td colspan="4"><div id='botones_solucion' align="center" style='display:none;'><input id='boton_guardar' type="button" value="Guardar cambios"/> &nbsp;&nbsp;&nbsp;&nbsp;<input id='boton_solucionar' type="button" value="Dar por solucionado"/></div></td>
 						</tr>
 					</tbody></table>
 				</div></td></tr>

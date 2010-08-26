@@ -518,13 +518,12 @@ class SolicitudesController extends AppController
 		$this->set('opciones_menu', $opciones_menu);
 		
 		// Revisamos variables de Session.
-		if ( $this->Session->check('Controlador.resultado_guardar') )
+		if ( $this->Session->check('Controlador.resultado_guardar') && $this->Session->read('Controlador.resultado_guardar')!='' )
 		{
 			if ( $this->Session->read('Controlador.resultado_guardar') == 'exito' )
 			{
 				$this->set('display_notificacion', 'block');
 				$this->set('clase_notificacion', 'clean-ok');
-				//$this->set('mensaje_notificacion', 'Se han guardado los cambios.');
 				if ( $this->Session->read('Controlador.resultado_email') == 'exito' )
 				{
 					$this->set('mensaje_notificacion', 'La solicitud de servicio #'.$this->Session->read('Controlador.resultado_id').' ha sido solucionada y archivada, y se ha enviado un email con la información de la solicitud ');
@@ -538,23 +537,27 @@ class SolicitudesController extends AppController
 			{
 				$this->set('display_notificacion', 'block');
 				$this->set('clase_notificacion', 'clean-error');
-				$this->set('mensaje_notificacion', 'No se pudo guardar los cambios.');
-			}
-			else
-			{
-				$this->set('display_notificacion', 'none');
-				$this->set('clase_notificacion', '');
-				$this->set('mensaje_notificacion', '');
+				$this->set('mensaje_notificacion', 'No se pudo asignar la solicitud como asignada.');
 			}
 		}
-		else
+		else if ( $this->Session->check('Controlador.resultado_guardar_cambios') )
 		{
-			$this->set('display_notificacion', 'none');
-			$this->set('clase_notificacion', '');
-			$this->set('mensaje_notificacion', '');
+			if ( $this->Session->read('Controlador.resultado_guardar_cambios') == 'exito' )
+			{
+				$this->set('display_notificacion', 'block');
+				$this->set('clase_notificacion', 'clean-ok');
+				$this->set('mensaje_notificacion', 'Se han guardado los cambios.');
+			}
+			else if ( $this->Session->read('Controlador.resultado_guardar_cambios') == 'error' )
+			{
+				$this->set('display_notificacion', 'block');
+				$this->set('clase_notificacion', 'clean-error');
+				$this->set('mensaje_notificacion', 'No se pudieron guardar los cambios.');
+			}
 		}
 		
-		$this->Session->write('Controlador.resultado_guardar', '');
+		$this->Session->delete('Controlador.resultado_guardar');
+		$this->Session->delete('Controlador.resultado_guardar_cambios');
 		
 		$this->Solicitud->recursive = 1;
 		$solicitud_info = $this->Solicitud->read(null, $id);
@@ -726,11 +729,11 @@ class SolicitudesController extends AppController
 			
 			if ( $this->Solicitud->save($this->data) )
 			{
-				$this->Session->write('Controlador.resultado_guardar', 'exito');
+				$this->Session->write('Controlador.resultado_guardar_cambios', 'exito');
 			}
 			else
 			{
-				$this->Session->write('Controlador.resultado_guardar', 'error');
+				$this->Session->write('Controlador.resultado_guardar_cambios', 'error');
 			}
 			
 			$this->redirect($this->referer());

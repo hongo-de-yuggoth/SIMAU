@@ -7,7 +7,7 @@ class DATABASE_CONFIG {
 		'host' => 'localhost',
 		'port' => 3306,
 		'login' => 'root',
-		'password' => '',
+		'password' => 'violazea',
 		'database' => 'smuqlab',
 	);
 	var $test = array(
@@ -24,7 +24,7 @@ class DATABASE_CONFIG {
 		'host' => 'localhost',
 		'port' => 3306,
 		'login' => 'root',
-		'password' => '',
+		'password' => 'violazea',
 		'database' => 'smuqlab',
 		'encoding' => 'UTF-8'
 	);
@@ -34,7 +34,7 @@ class DATABASE_CONFIG {
 		'host' => 'localhost',
 		'port' => 3306,
 		'login' => 'root',
-		'password' => '',
+		'password' => 'violazea',
 		'database' => 'inventario',
 	);
 }
