@@ -44,6 +44,32 @@ jQuery(document).ready(function()
 	//--------------------------------------------------------------------------
 	// Programamos los diferentes EVENTOS.
 	
+	//--------------------------------------------------------------------------
+	
+	jQuery('#login_usr').keypress(function(kp)
+	{
+		if ( kp.which == 13 )
+		{
+			jQuery('#boton_entrar').click();
+			return false;
+		}
+		return true;
+	});
+	
+	//--------------------------------------------------------------------------
+	
+	jQuery('#clave').keypress(function(kp)
+	{
+		if ( kp.which == 13 )
+		{
+			jQuery('#boton_entrar').click();
+			return false;
+		}
+		return true;
+	});
+	
+	//--------------------------------------------------------------------------
+	
 	// Validamos los datos del formulario.
 	jQuery('#boton_entrar').click(function()
 	{
