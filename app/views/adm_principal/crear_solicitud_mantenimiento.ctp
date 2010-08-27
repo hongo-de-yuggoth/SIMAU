@@ -111,24 +111,24 @@ echo $javascript->link('adm_principal/crear_solicitud_mantenimiento');
 				<tr><td height="10" colspan="4"/></tr>
 				
 				<tr align="left">
-					<td colspan='4'><table width="100%">
-							<tr align="left">
-								<td class='subtitulo' width="60">Placa de Inventario:</td>
-								<td colspan="3" width="210" valign="bottom"><div id='placa_equ' /></td>
-							</tr>
-							<tr><td height="10" colspan="4"/></tr>
-							<tr align="left">
-								<td class='subtitulo' width='50'>Nombre:</td>
-								<td colspan="3" width="210"><div id='nombre_equ' /></td>
-							</tr>
-							<tr><td height="10" colspan="4"/></tr>
-							<tr align="left">
-								<td class='subtitulo' width='50'>Modelo:</td>
-								<td width="210"><div id='modelo_equ' /></td>
-								<td class='subtitulo' width='45'>Marca:</td>
-								<td><div id='marca_equ' /></td>
-							</tr>
-					</table></td>
+					<td colspan='4'>
+						<fieldset>
+							<legend><b><div id='placa_equ'>Información del Equipo #</div></b></legend>
+							<table width="100%">
+								<tr align="left">
+									<td class='subtitulo' width='50'>Nombre:</td>
+									<td colspan="3" width="210"><div id='nombre_equ' /></td>
+								</tr>
+								<tr><td height="10" colspan="4"/></tr>
+								<tr align="left">
+									<td class='subtitulo' width='50'>Modelo:</td>
+									<td width="210"><div id='modelo_equ' /></td>
+									<td class='subtitulo' width='45'>Marca:</td>
+									<td><div id='marca_equ' /></td>
+								</tr>
+							</table>
+						</fieldset>
+					</td>
 				</tr>
 				
 				<tr><td height="10" colspan="4"/></tr>

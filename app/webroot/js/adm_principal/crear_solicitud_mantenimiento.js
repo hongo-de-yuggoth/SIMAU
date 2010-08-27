@@ -3,7 +3,7 @@
 function limpiar()
 {
 	$('#equipo_confirmado').val('');
-	$('#placa_equ').html('');
+	$('#placa_equ').html('Información del Equipo #');
 	$('#nombre_equ').html('');
 	$('#modelo_equ').html('');
 	$('#marca_equ').html('');
@@ -76,6 +76,7 @@ $(document).ready(function()
 		if ( $('#placa_inventario').val() == '' )
 		{
 			// Activamos mensaje de error.
+			$('#placa_equ').html('Información del Equipo #'+$('#equipo_confirmado').val());
 			$('#error_placa').html('Escribe una placa de inventario por favor.').show();
 		}
 		else
@@ -99,7 +100,7 @@ $(document).ready(function()
 						$('#nombre_equ').html($('#nombre_equipo').val());
 						$('#marca_equ').html($('#marca_equipo').val());
 						$('#modelo_equ').html($('#modelo_equipo').val());
-						$('#placa_equ').html($('#equipo_confirmado').val());
+						$('#placa_equ').html('Información del Equipo #'+$('#equipo_confirmado').val());
 						$('#error_placa').html('Placa de inventario encontrada.').show();
 					}
 					else if ( $('#encontro').val() == 'false' )
