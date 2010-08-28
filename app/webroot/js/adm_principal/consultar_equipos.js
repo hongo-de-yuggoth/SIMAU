@@ -32,7 +32,7 @@ function cargar_select_usuarios()
 function cargar_tabla(datos_json)
 {
 	// Si se encontraron equipos....
-	if ( datos_json.resultado == true )
+	if ( datos_json != null && datos_json.resultado == true )
 	{
 		// la cargamos en la página.
 		var thead = '<thead><tr><th>Placa del<br>Equipo</th><th>Nombre</th><th>Modelo</th><th>Dependencia</th><th>Usuario</th></tr></thead>';
@@ -86,7 +86,8 @@ function buscar_equipos(frase_busqueda, criterio_campo, criterio_dependencia, cr
 		async: false,
 		success: function(datos_json)
 		{
-			if ( datos_json.resultado == true )
+			
+			if ( datos_json != null && datos_json.resultado == true )
 			{
 				actualizar_link_xls(frase_busqueda, criterio_campo, criterio_dependencia, criterio_usuario);
 			}
