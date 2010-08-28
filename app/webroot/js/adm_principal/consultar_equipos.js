@@ -188,6 +188,24 @@ $(document).ready(function()
 				buscar_equipo(frase_busqueda);
 			}
 		}
+		else if ( criterio_campo == 'prousu_usu_cedula' )
+		{
+			// Validamos "prousu_usu_cedula" en el campo BUSCAR.
+			if ( frase_busqueda == '' )
+			{
+				$('#error_placa_inventario').html('Escribe la cédula del usuario.').show();
+				$('#tabla_resultados tbody').html('');
+				$('#resultados').hide();
+				$('#error_consulta').hide();
+				$('#total_registros').html('').hide();
+				$('#archivo_xls').hide();
+			}
+			else
+			{
+				$('#error_placa_inventario').html('').hide();
+				buscar_equipos(frase_busqueda, criterio_campo, criterio_dependencia, criterio_usuario);
+			}
+		}
 		else
 		{
 			$('#error_placa_inventario').html('').hide();
