@@ -14,7 +14,8 @@ echo $javascript->link('equipos/ver');
 </div>
 
 <div id="col_derecha">
-	<div id="titulo_pagina" align="center">Información de un Equipo</div>
+	<div id="titulo_pagina" align="center">Consulta de Equipos</div>
+	<div id="subtitulo_pagina" align="center">Informacion del Equipo con placa de inventario #<?php echo $producto['Producto']['prousu_placa']; ?></div>
 	<div id="contenido_vista">
       <table width="100%" cellspacing="0" cellpadding="0" border="0"><tbody>
          <tr align="left">
