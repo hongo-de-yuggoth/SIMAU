@@ -4,14 +4,15 @@ class SmuqUsuariosController extends AppController
 	var $name = 'SmuqUsuarios';
 	var $helpers = array('Html', 'Form', 'Javascript');
 	var $uses  = array('SmuqUsuario', 'Usuario');
+	var $id_grupo = '*';
 	
 	//--------------------------------------------------------------------------
 	
-	function beforeFilter()
+	/*function beforeFilter()
 	{
 		$this->set('display_contexto', 'none');
 		$this->set('contexto', '');
-	}
+	}*/
 	
 	//--------------------------------------------------------------------------
 	

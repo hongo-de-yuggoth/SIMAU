@@ -11,7 +11,7 @@ class AppController extends Controller
 		
 		if ( $this->Session->check('Usuario.id_grupo')  )
 		{
-			if ( $this->Session->read('Usuario.id_grupo') != $this->id_grupo )
+			if ( $this->id_grupo != '*' && $this->Session->read('Usuario.id_grupo') != $this->id_grupo )
 			{
 				$this->Session->write('referer', $this->referer());
 				$this->redirect(array('controller' => 'smuq_usuarios',

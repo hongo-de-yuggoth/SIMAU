@@ -3,6 +3,7 @@ class SolicitudesController extends AppController
 {
 	var $helpers = array('Html', 'Javascript');
 	var $components = array('Tiempo', 'Email');
+	var $id_grupo = '*';
 	var $tipo_servicio = array
 	(
 		'1' => 'Mantenimiento Preventivo',
@@ -31,11 +32,13 @@ class SolicitudesController extends AppController
 	</tbody></table>';
 	//--------------------------------------------------------------------------
 	
-	function beforeFilter()
+	/*
+	 function beforeFilter()
 	{
 		$this->set('display_contexto', 'none');
 		$this->set('contexto', '');
 	}
+	*/
 	
 	//--------------------------------------------------------------------------
 	

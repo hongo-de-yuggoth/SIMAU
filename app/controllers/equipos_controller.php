@@ -4,14 +4,15 @@ class EquiposController extends AppController
 	var $helpers = array('Html', 'Javascript');
 	var $uses  = array('Equipo', 'Producto');
 	var $components = array('Tiempo');
+	var $id_grupo = '*';
 	
 	//--------------------------------------------------------------------------
 	
-	function beforeFilter()
+	/*function beforeFilter()
 	{
 		$this->set('display_contexto', 'none');
 		$this->set('contexto', '');
-	}
+	}*/
 	
 	//--------------------------------------------------------------------------
 	
