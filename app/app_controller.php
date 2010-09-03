@@ -20,6 +20,10 @@ class AppController extends Controller
 			$this->set('display_contexto', 'block');
 			$this->set('contexto', 'Bienvenido, '.$this->Session->read('Usuario.nombre'));
 		}
+		else if ( $this->params['controller'] == 'smuq_usuarios' && $this->params['action'] == 'login' )
+		{
+			$this->set('display_contexto', 'none');
+		}
 		else
 		{
 			$this->redirect(array
