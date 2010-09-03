@@ -237,4 +237,10 @@
  *
  */
 	Cache::config('default', array('engine' => 'File'));
+   
+
+//------------------------------------+
+// Constantes SMUQLAB                 |
+//------------------------------------+
+Configure::write('TiposUsuario', array(1 => 'Administrador Principal',2 => 'Administrador de Soluciones',3 => 'Usuario de Dependencia'));
 ?>

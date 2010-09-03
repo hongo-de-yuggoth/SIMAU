@@ -502,6 +502,16 @@ class AdmPrincipalController extends AppController
 		$smuq_usuario = $this->SmuqUsuario->find('first', array('conditions' => array('SmuqUsuario.cedula' => $this->Session->read('Usuario.cedula'))));
 		if ( !empty($smuq_usuario) )
 		{
+			$tipos_usuario = Configure::read('TiposUsuario');
+			$smuq_usuario['SmuqUsuario']['tipo_usuario'] = $tipos_usuario[$smuq_usuario['SmuqUsuario']['id_grupo']];
+			if ( $smuq_usuario['SmuqUsuario']['email'] == '' )
+			{
+				$smuq_usuario['SmuqUsuario']['email'] = 'No disponible';
+			}
+			if ( $smuq_usuario['SmuqUsuario']['cargo'] == '' )
+			{
+				$smuq_usuario['SmuqUsuario']['cargo'] = 'No disponible';
+			}
 			$this->set('smuq_usuario', $smuq_usuario);
 		}
 	}

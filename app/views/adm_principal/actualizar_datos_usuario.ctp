@@ -134,6 +134,13 @@ echo $javascript->link('adm_principal/actualizar_datos_usuario');
 									<td colspan="3" class="textoError"><div id="error_cargo" style="display:none;" /></td>
 								</tr>
 								
+								<tr><td height="10" colspan="4"/></tr>
+								
+								<tr align="left">
+									<td class='subtitulo' width='90'>Tipo de usuario:</td>
+									<td colspan="3"><?php echo $smuq_usuario["SmuqUsuario"]["tipo_usuario"];?></td>
+								</tr>
+								
 								<tr><td height="15" colspan="4"/></tr>
 								
 								<tr align="left">
