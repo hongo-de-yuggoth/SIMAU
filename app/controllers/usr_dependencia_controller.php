@@ -387,6 +387,8 @@ class UsrDependenciaController extends AppController
 		}
 	
 		// Trasladamos valores al arreglo $usuario_info
+		$tipos_usuario = Configure::read('TiposUsuario');
+		$usuario_info['tipo_usuario'] = $tipos_usuario[3];
 		$usuario_info['nombre'] = mb_convert_case($usuario['Usuario']['Usu_nombre'], MB_CASE_TITLE, "UTF-8");
 		$usuario_info['cedula'] = $cedula;
 		$usuario_info['login'] = $usuario['Usuario']['Usu_login'];
