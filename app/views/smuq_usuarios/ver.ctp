@@ -14,7 +14,8 @@ echo $javascript->link('smuq_usuarios/ver');
 </div>
 
 <div id="col_derecha">
-	<div id="titulo_pagina" align="center">Información de un usuario</div>
+	<div id="titulo_pagina" align="center">Consulta de Usuarios</div>
+	<div id="subtitulo_pagina" align="center">Información de <?php echo $usuario['Usuario']['nombre']; ?></div>
 	<div id="cuadro_notificaciones"></div>
 	
 	<div id="contenido_vista">
