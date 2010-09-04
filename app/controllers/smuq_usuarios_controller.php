@@ -8,14 +8,6 @@ class SmuqUsuariosController extends AppController
 	
 	//--------------------------------------------------------------------------
 	
-	/*function beforeFilter()
-	{
-		$this->set('display_contexto', 'none');
-		$this->set('contexto', '');
-	}*/
-	
-	//--------------------------------------------------------------------------
-	
 	function exportar_xls($frase_busqueda, $criterio_campo, $criterio_dependencia, $criterio_tipo_usuario)
 	{
 		$datos = json_decode($this->requestAction('/smuq_usuarios/buscar_xls/'.$frase_busqueda.'/'.$criterio_campo.'/'.$criterio_dependencia.'/'.$criterio_tipo_usuario));
@@ -544,7 +536,7 @@ class SmuqUsuariosController extends AppController
 			$filas_tabla = '';
 			foreach ( $usuarios_info as $usuario )
 			{
-				$filas_tabla .= '<tr><td><a target="_self" href="/smuq_usuarios/ver/'.$usuario['Usuario']['Usu_cedula'].'">'.mb_convert_case($usuario['Usuario']['Usu_nombre'], MB_CASE_TITLE, "UTF-8").'</a></td>';
+				$filas_tabla .= '<tr><td><a target="_self" href="/smuq_usuarios/ver/'.$usuario['Usuario']['Usu_cedula'].'" title="Ver información completa del usuario">'.mb_convert_case($usuario['Usuario']['Usu_nombre'], MB_CASE_TITLE, "UTF-8").'</a></td>';
 				$filas_tabla .= '<td>'.$usuario['Usuario']['Usu_cedula'].'</td>';
 				$filas_tabla .= '<td>'.$usuario['Usuario']['Usu_login'].'</td>';
 				$filas_tabla .= '<td>'.mb_convert_case($usuario['CentroCosto']['Cencos_nombre'], MB_CASE_TITLE, "UTF-8").'</td>';
@@ -607,7 +599,7 @@ class SmuqUsuariosController extends AppController
 			$filas_tabla = '';
 			foreach ( $usuarios_info as $usuario )
 			{
-				$filas_tabla .= '<tr><td><a target="_self" href="/smuq_usuarios/ver/'.$usuario['SmuqUsuario']['cedula'].'">'.$usuario['SmuqUsuario']['nombre'].'</a></td>';
+				$filas_tabla .= '<tr><td><a target="_self" href="/smuq_usuarios/ver/'.$usuario['SmuqUsuario']['cedula'].'" title="Ver información completa del usuario">'.$usuario['SmuqUsuario']['nombre'].'</a></td>';
 				$filas_tabla .= '<td>'.$usuario['SmuqUsuario']['cedula'].'</td>';
 				$filas_tabla .= '<td>'.$usuario['SmuqUsuario']['login'].'</td>';
 				$filas_tabla .= '<td>Equipo Mantenimiento - Activos Fijos</td>';

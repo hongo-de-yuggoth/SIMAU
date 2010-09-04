@@ -8,14 +8,6 @@ class EquiposController extends AppController
 	
 	//--------------------------------------------------------------------------
 	
-	/*function beforeFilter()
-	{
-		$this->set('display_contexto', 'none');
-		$this->set('contexto', '');
-	}*/
-	
-	//--------------------------------------------------------------------------
-	
 	function exportar_xls($frase_busqueda, $criterio_campo, $criterio_dependencia, $criterio_usuario)
 	{
 		$datos = json_decode($this->requestAction('/equipos/buscar_xls/'.$frase_busqueda.'/'.$criterio_campo.'/'.$criterio_dependencia.'/'.$criterio_usuario));
@@ -438,7 +430,7 @@ class EquiposController extends AppController
 				{
 					$equipo['Producto']['prousu_modelo'] = 'No disponible';
 				}
-				$filas_tabla .= '<tr><td><a target="_blank" href="/equipos/ver/'.$equipo['Producto']['prousu_placa'].'">'.$equipo['Producto']['prousu_placa'].'</a></td>';
+				$filas_tabla .= '<tr><td><a target="_blank" href="/equipos/ver/'.$equipo['Producto']['prousu_placa'].'" title="Ver información completa del equipo">'.$equipo['Producto']['prousu_placa'].'</a></td>';
 				$filas_tabla .= '<td>'.mb_convert_case($equipo['Producto']['prousu_pro_nombre'], MB_CASE_TITLE, "UTF-8").'</td>';
 				$filas_tabla .= '<td>'.mb_convert_case($equipo['Producto']['prousu_modelo'], MB_CASE_TITLE, "UTF-8").'</td>';
 				$filas_tabla .= '<td>'.mb_convert_case($cenco['CentroCosto']['Cencos_nombre'], MB_CASE_TITLE, "UTF-8").'</td>';

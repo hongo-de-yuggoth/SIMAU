@@ -32,16 +32,6 @@ class SolicitudesController extends AppController
 	</tbody></table>';
 	//--------------------------------------------------------------------------
 	
-	/*
-	 function beforeFilter()
-	{
-		$this->set('display_contexto', 'none');
-		$this->set('contexto', '');
-	}
-	*/
-	
-	//--------------------------------------------------------------------------
-	
 	function exportar_xls($frase_busqueda, $criterio_fecha, $fecha_1, $fecha_2, $mostrar_solicitudes, $criterio_campo, $tipo_servicio)
 	{
 		$datos = json_decode($this->requestAction('/solicitudes/buscar_xls/'.$frase_busqueda.'/'.$criterio_fecha.'/'.$fecha_1.'/'.$fecha_2.'/'.$mostrar_solicitudes.'/'.$criterio_campo.'/'.$tipo_servicio));
