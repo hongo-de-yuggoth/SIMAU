@@ -32,7 +32,7 @@ class AdmPrincipalController extends AppController
 		array('titulo' => 'Consultar Reportes Estadísticos',
 				'link' => '/adm_principal/consultar_reportes',
 				'id' => 'consultar_reportes'),
-		array('titulo' => 'Actualizar Datos de Usuario',
+		array('titulo' => 'Actualizar mis Datos',
 				'link' => '/adm_principal/actualizar_datos_usuario',
 				'id' => 'actualizar_datos_usuario'),
 		array('titulo' => 'Ayuda / Manual',

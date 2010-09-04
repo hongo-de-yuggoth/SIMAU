@@ -16,7 +16,7 @@ class UsrDependenciaController extends AppController
 		array('titulo' => 'Consultar Equipos',
 				'link' => '/usr_dependencia/consultar_equipos',
 				'id' => 'consultar_equipos'),
-		array('titulo' => 'Actualizar Datos de Usuario',
+		array('titulo' => 'Actualizar mis Datos',
 				'link' => '/usr_dependencia/actualizar_datos_usuario',
 				'id' => 'actualizar_datos_usuario'),
 		array('titulo' => 'Ayuda / Manual',

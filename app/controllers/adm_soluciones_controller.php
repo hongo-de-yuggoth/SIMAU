@@ -17,7 +17,7 @@ class AdmSolucionesController extends AppController
 		array('titulo' => 'Consultar Equipos',
 				'link' => '/adm_soluciones/consultar_equipos',
 				'id' => 'consultar_equipos'),
-		array('titulo' => 'Actualizar Datos de Usuario',
+		array('titulo' => 'Actualizar mis Datos',
 				'link' => '/adm_soluciones/actualizar_datos_usuario',
 				'id' => 'actualizar_datos_usuario'),
 		array('titulo' => 'Ayuda / Manual',
