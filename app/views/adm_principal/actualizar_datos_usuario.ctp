@@ -55,12 +55,7 @@ echo $javascript->link('adm_principal/actualizar_datos_usuario');
 								
 								<tr align="left">
 									<td class='subtitulo' width='120'>Cédula:</td>
-									<td colspan='3' width="210"><input id="cedula" name='data[SmuqUsuario][cedula]' maxlength="9" size='10' value='<?php echo $smuq_usuario["SmuqUsuario"]["cedula"];?>' /></td>
-								</tr>
-								
-								<tr align="left">
-									<td></td>
-									<td colspan='3' class="textoError"><div id="error_cedula" style="display:none;" /></td>
+									<td colspan='3' width="210"><?php echo $smuq_usuario["SmuqUsuario"]["cedula"];?></td>
 								</tr>
 								
 								<tr><td height="10" colspan="4"/></tr>
