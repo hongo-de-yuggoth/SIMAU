@@ -78,14 +78,7 @@ echo $javascript->link('adm_principal/modificar_usuario');
 								
 								<tr align="left">
 									<td class='subtitulo' width='120'>Cédula:</td>
-									<td width="210">
-										<div id="div_cedula"></div>
-										<div id="div_cedula_input" style="display:none;"><input id="cedula" maxlength="9" size='10' type="text" /></td></div>
-								</tr>
-								
-								<tr align="left">
-									<td width='120'></td>
-									<td width="210" class="textoError"><div id="error_cedula" style="display:none;" /></td>
+									<td width="210"><div id="cedula"></div></td>
 								</tr>
 								
 								<tr><td height="10" colspan="2"/></tr>

@@ -462,10 +462,6 @@ class SmuqUsuariosController extends AppController
 		$this->autoLayout = false;
 		$this->autoRender = false;
 		
-		
-		//print_r($this->data); return;
-		
-		
 		if ( !empty($this->data) )
 		{
 			if ( isset($this->data['SmuqUsuario']['clave']) )

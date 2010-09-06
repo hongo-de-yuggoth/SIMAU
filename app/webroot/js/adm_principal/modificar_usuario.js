@@ -48,9 +48,8 @@ function telefono_vacio()
 jQuery(document).ready(function()
 {
 	jQuery('div.cuerpo_menu ul #'+jQuery('#opcion_seleccionada').val()).addClass('selected');
-	
+	 
 	jQuery('#nombre').keypress(config_input);
-	jQuery('#cedula').keypress(config_input);
 	jQuery('#login').keypress(config_input);
 	jQuery('#clave').keypress(config_input);
 	jQuery('#clave2').keypress(config_input);
@@ -106,7 +105,6 @@ jQuery(document).ready(function()
 						if ( tipo_usr == '3' )
 						{
 							jQuery('#div_nombre').html(jQuery('#nombre_usuario').val());
-							jQuery('#div_cedula').html(jQuery('#cedula_usuario').val());
 							jQuery('#div_login').html(jQuery('#login_usuario').val());
 							jQuery('#clave').attr('disabled', 'true');
 							jQuery('#clave2').attr('disabled', 'true');
@@ -115,23 +113,19 @@ jQuery(document).ready(function()
 							jQuery('#div_edificio').html(jQuery('#nombre_edificio').val());
 							jQuery('#div_dependencia').html(jQuery('#nombre_dependencia').val());
 							jQuery('#div_nombre_input').hide();
-							jQuery('#div_cedula_input').hide();
 							jQuery('#div_login_input').hide();
 						}
 						else
 						{
 							jQuery('#div_nombre').html('');
-							jQuery('#div_cedula').html('');
 							jQuery('#div_login').html('');
 							jQuery('#div_edificio').html(jQuery('#nombre_edificio').val());
 							jQuery('#div_dependencia').html(jQuery('#nombre_dependencia').val());
 							jQuery('#clave').removeAttr('disabled');
 							jQuery('#clave2').removeAttr('disabled');
 							jQuery('#nombre').val(jQuery('#nombre_usuario').val());
-							jQuery('#cedula').val(jQuery('#cedula_usuario').val());
 							jQuery('#login').val(jQuery('#login_usuario').val());
 							jQuery('#div_nombre_input').show();
-							jQuery('#div_cedula_input').show();
 							jQuery('#div_login_input').show();
 							jQuery('#div_tipo_usuario').hide();
 							jQuery('#tipo_usuario option[value='+tipo_usr+']').attr('selected', 'true');
@@ -140,10 +134,10 @@ jQuery(document).ready(function()
 						jQuery('#email').val(jQuery('#email_usuario').val());
 						jQuery('#telefono').val(jQuery('#telefono_usuario').val());
 						jQuery('#cargo').val(jQuery('#cargo_usuario').val());
+						jQuery('#cedula').html(jQuery('#cedula_usuario').val());
 						
 						jQuery('#error_cedula_buscar').html('Cédula encontrada.').show();
 						jQuery('#error_nombre').html('').hide();
-						jQuery('#error_cedula').html('').hide();
 						jQuery('#error_login').html('').hide();
 						jQuery('#error_clave').html('').hide();
 						jQuery('#error_clave2').html('').hide();
@@ -188,7 +182,7 @@ jQuery(document).ready(function()
 			// Si es de CENCOS solo validamos el email y el cargo
 			if ( ecl==true && cv==false && tv==false )
 			{
-				jQuery('#cedula_usuario').attr('name', 'data[SmuqUsuario][cedula]');
+				//jQuery('#cedula_usuario').attr('name', 'data[SmuqUsuario][cedula]');
 				jQuery('#email').attr('name', 'data[SmuqUsuario][email]');
 				jQuery('#telefono').attr('name', 'data[SmuqUsuario][telefono]');
 				jQuery('#cargo').attr('name', 'data[SmuqUsuario][cargo]');
@@ -200,14 +194,12 @@ jQuery(document).ready(function()
 		{
 			// Si es de Smuq (Administrador) validamos todo.
 			jQuery('#nombre').val(jQuery.trim(jQuery('#nombre').val()));
-			jQuery('#cedula').val(jQuery.trim(jQuery('#cedula').val()));
 			jQuery('#login').val(jQuery.trim(jQuery('#login').val()));
 			nv = nombre_vacio();
-			ccl = cedula_con_logica('cedula_usuario', 'cedula');
 			lcl = login_con_logica('login_usuario', 'login');
 			clv = claves_correctas();
 			
-			if ( nv==false && ccl==true && lcl==true && clv==true && ecl==true && cv==false && tv==false )
+			if ( nv==false && lcl==true && clv==true && ecl==true && cv==false && tv==false )
 			{
 				// Si hay una clave nueva, activamos variable data[][].
 				if ( jQuery('#clave').val() != '' )
@@ -215,13 +207,15 @@ jQuery(document).ready(function()
 					jQuery('#clave').attr('name', 'data[SmuqUsuario][clave]');
 				}
 				jQuery('#nombre').attr('name', 'data[SmuqUsuario][nombre]');
-				jQuery('#cedula').attr('name', 'data[SmuqUsuario][cedula]');
 				jQuery('#login').attr('name', 'data[SmuqUsuario][login]');
 				jQuery('#email').attr('name', 'data[SmuqUsuario][email]');
 				jQuery('#telefono').attr('name', 'data[SmuqUsuario][telefono]');
-				jQuery('#id_grupo').attr('name', 'data[SmuqUsuario][id_grupo]');
+				jQuery('#tipo_usuario').attr('name', 'data[SmuqUsuario][id_grupo]');
 				jQuery('#cargo').attr('name', 'data[SmuqUsuario][cargo]');
 				jQuery('#usuario').attr('action', '/smuq_usuarios/modificar');
+				
+				jQuery('#cedula_usuario').attr('name', 'data[SmuqUsuario][cedula]');
+				
 				return true;
 			}
 		}
