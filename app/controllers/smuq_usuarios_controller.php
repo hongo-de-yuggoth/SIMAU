@@ -326,7 +326,7 @@ class SmuqUsuariosController extends AppController
 				$input_tipo_usuario = '<input id="tipo_usuario_usuario" type="hidden" value="3"/>';
 				$input_id_dependencia = '<input id="id_dependencia_usuario" type="hidden" value="'.$usuario_info['Usuario']['Usu_Cencos_id'].'"/>';
 				$input_nombre = '<input id="nombre_usuario" type="hidden" value="'.mb_convert_case($usuario_info['Usuario']['Usu_nombre'], MB_CASE_TITLE, "UTF-8").'"/>';
-				$input_cedula = '<input id="cedula_usuario" type="hidden" value="'.$cedula.'"/>';
+				$input_cedula = '<input id="cedula_usuario" type="hidden" value="'.$usuario_info['Usuario']['Usu_cedula'].'"/>';
 				$input_cargo = '<input id="cargo_usuario" type="hidden" value="'.$smuq_usuario_info['SmuqUsuario']['cargo'].'"/>';
 				$input_email = '<input id="email_usuario" type="hidden" value="'.$smuq_usuario_info['SmuqUsuario']['email'].'"/>';
 				$input_telefono = '<input id="telefono_usuario" type="hidden" value="'.$smuq_usuario_info['SmuqUsuario']['telefono'].'"/>';
@@ -334,6 +334,7 @@ class SmuqUsuariosController extends AppController
 				$input_nombre_edificio = '<input id="nombre_edificio" type="hidden" value="'.$edificio_info['Edificio']['name'].'"/>';
 				$input_nombre_dependencia = '<input id="nombre_dependencia" type="hidden" value="'.mb_convert_case($centro_costo_info['CentroCosto']['Cencos_nombre'], MB_CASE_TITLE, "UTF-8").'"/>';
 				$input_encontro ='<input id="encontro" type="hidden" value="true"/>';
+				$input_estado_usuario ='<input id="estado_usr" type="hidden" value="1"/>';
 				
 				return	$input_nombre.
 							$input_cedula.
@@ -346,7 +347,8 @@ class SmuqUsuariosController extends AppController
 							$input_id_dependencia.
 							$input_nombre_edificio.
 							$input_nombre_dependencia.
-							$input_encontro;
+							$input_encontro.
+							$input_estado_usuario;
 			}
 		}
 		else if ( !empty($smuq_usuario_info) )
@@ -356,7 +358,7 @@ class SmuqUsuariosController extends AppController
 			$input_tipo_usuario = '<input id="tipo_usuario_usuario" type="hidden" value="'.$smuq_usuario_info['SmuqUsuario']['id_grupo'].'"/>';
 			$input_id_dependencia = '<input id="id_dependencia_usuario" type="hidden" value="1"/>';
 			$input_nombre = '<input id="nombre_usuario" type="hidden" value="'.$smuq_usuario_info['SmuqUsuario']['nombre'].'"/>';
-			$input_cedula = '<input id="cedula_usuario" type="hidden" value="'.$cedula.'"/>';
+			$input_cedula = '<input id="cedula_usuario" type="hidden" value="'.$smuq_usuario_info['SmuqUsuario']['cedula'].'"/>';
 			$input_cargo = '<input id="cargo_usuario" type="hidden" value="'.$smuq_usuario_info['SmuqUsuario']['cargo'].'"/>';
 			$input_email = '<input id="email_usuario" type="hidden" value="'.$smuq_usuario_info['SmuqUsuario']['email'].'"/>';
 			$input_telefono = '<input id="telefono_usuario" type="hidden" value="'.$smuq_usuario_info['SmuqUsuario']['telefono'].'"/>';
@@ -364,6 +366,7 @@ class SmuqUsuariosController extends AppController
 			$input_nombre_edificio = '<input id="nombre_edificio" type="hidden" value="Mantenimiento Activos Fijos"/>';
 			$input_nombre_dependencia = '<input id="nombre_dependencia" type="hidden" value="Mantenimiento Activos Fijos"/>';
 			$input_encontro ='<input id="encontro" type="hidden" value="true"/>';
+			$input_estado_usuario ='<input id="estado_usr" type="hidden" value="'.$smuq_usuario_info['SmuqUsuario']['activo'].'"/>';
 			
 			return	$input_nombre.
 						$input_cedula.
@@ -376,7 +379,8 @@ class SmuqUsuariosController extends AppController
 						$input_id_dependencia.
 						$input_nombre_edificio.
 						$input_nombre_dependencia.
-						$input_encontro;
+						$input_encontro.
+						$input_estado_usuario;
 		}
 		return '<input id="encontro" type="hidden" value="false" />';
 	}

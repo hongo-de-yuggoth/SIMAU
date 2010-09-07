@@ -114,6 +114,8 @@ jQuery(document).ready(function()
 							jQuery('#div_dependencia').html(jQuery('#nombre_dependencia').val());
 							jQuery('#div_nombre_input').hide();
 							jQuery('#div_login_input').hide();
+							jQuery('#estado_usuario option[value=1]').attr('selected', 'true');
+							jQuery('#estado_usuario').attr('disabled', 'true');
 						}
 						else
 						{
@@ -130,6 +132,8 @@ jQuery(document).ready(function()
 							jQuery('#div_tipo_usuario').hide();
 							jQuery('#tipo_usuario option[value='+tipo_usr+']').attr('selected', 'true');
 							jQuery('#div_tipo_usuario_select').show();
+							jQuery('#estado_usuario option[value='+jQuery('#estado_usr').val()+']').attr('selected', 'true');
+							jQuery('#estado_usuario').removeAttr('disabled');
 						}
 						jQuery('#email').val(jQuery('#email_usuario').val());
 						jQuery('#telefono').val(jQuery('#telefono_usuario').val());
@@ -207,14 +211,14 @@ jQuery(document).ready(function()
 					jQuery('#clave').attr('name', 'data[SmuqUsuario][clave]');
 				}
 				jQuery('#nombre').attr('name', 'data[SmuqUsuario][nombre]');
+				jQuery('#cedula_usuario').attr('name', 'data[SmuqUsuario][cedula]');
 				jQuery('#login').attr('name', 'data[SmuqUsuario][login]');
 				jQuery('#email').attr('name', 'data[SmuqUsuario][email]');
 				jQuery('#telefono').attr('name', 'data[SmuqUsuario][telefono]');
 				jQuery('#tipo_usuario').attr('name', 'data[SmuqUsuario][id_grupo]');
 				jQuery('#cargo').attr('name', 'data[SmuqUsuario][cargo]');
+				jQuery('#estado_usuario').attr('name', 'data[SmuqUsuario][activo]');
 				jQuery('#usuario').attr('action', '/smuq_usuarios/modificar');
-				
-				jQuery('#cedula_usuario').attr('name', 'data[SmuqUsuario][cedula]');
 				
 				return true;
 			}

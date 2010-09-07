@@ -186,6 +186,18 @@ echo $javascript->link('adm_principal/modificar_usuario');
 									<td width="300"  class="textoError"><div id="error_cargo" style="display:none;" /></td>
 								</tr>
 								
+								<tr><td height="10" colspan="2"/></tr>
+					
+								<tr align="left">
+									<td class='subtitulo' width='90'>Estado:</td>
+									<td>
+										<select id='estado_usuario'>
+											<option value='1'>Activado</option>
+											<option value='0'>Desactivado</option>
+										</select>
+									</td>
+								</tr>
+								
 								<tr><td height="15" colspan="2"/></tr>
 								
 								<tr align="left">
