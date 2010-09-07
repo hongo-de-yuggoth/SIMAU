@@ -735,8 +735,88 @@ class EquiposController extends AppController
 			$centro_costo = $this->CentroCosto->findByCencosId($producto['Usuario']['Usu_Cencos_id']);
 			$centro_costo['CentroCosto']['Cencos_nombre'] = mb_convert_case($centro_costo['CentroCosto']['Cencos_nombre'], MB_CASE_TITLE, "UTF-8");
 			
-			//$equipo_info['Equipo']['estado'] = $this->estados[$equipo_info['Equipo']['estado']];
+			// Buscamos archivos del equipo.
+			$json_archivos = $this->requestAction('/equipos/buscar_equipo_archivos/'.$placa_inventario);
+			$archivos_equipo = json_decode($json_archivos, true);
+			if ( $archivos_equipo['encontro_equipo'] )
+			{
+				if ( count($archivos_equipo['certificados']) > 0 )
+				{
+					$lista_certificados = '<ul>';
+					foreach ( $archivos_equipo['certificados'] as $certificado )
+					{
+						$lista_certificados .= '<li><a href="/equipos/certificados/'.$certificado['nombre_archivo'].'">'.$certificado['nombre_archivo'].'</li>';
+					}
+					$lista_certificados .= '</ul>';
+					$lista_archivos['certificados'] = $lista_certificados;
+				}
+				else
+				{
+					$lista_archivos['certificados'] = 'No hay ningún certificado asignado al equipo.';
+				}
+				
+				if ( count($archivos_equipo['garantias']) > 0 )
+				{
+					$lista_garantias = '<ul>';
+					foreach ( $archivos_equipo['garantias'] as $garantia )
+					{
+						$lista_garantias .= '<li><a href="/equipos/garantias/'.$garantia['nombre_archivo'].'">'.$garantia['nombre_archivo'].'</li>';
+					}
+					$lista_garantias .= '</ul>';
+					$lista_archivos['garantias'] = $lista_garantias;
+				}
+				else
+				{
+					$lista_archivos['garantias'] = 'No hay ninguna garantía asignada al equipo.';
+				}
+				
+				if ( count($archivos_equipo['manuales']) > 0 )
+				{
+					$lista_manuales = '<ul>';
+					foreach ( $archivos_equipo['manuales'] as $manual )
+					{
+						$lista_manuales .= '<li><a href="/equipos/manuales/'.$manual['nombre_archivo'].'">'.$manual['nombre_archivo'].'</li>';
+					}
+					$lista_manuales .= '</ul>';
+					$lista_archivos['manuales'] = $lista_manuales;
+				}
+				else
+				{
+					$lista_archivos['manuales'] = 'No hay ningún manual asignado al equipo.';
+				}
+				
+				if ( count($archivos_equipo['facturas']) > 0 )
+				{
+					$lista_facturas = '<ul>';
+					foreach ( $archivos_equipo['facturas'] as $factura )
+					{
+						$lista_facturas .= '<li><a href="/equipos/facturas/'.$factura['nombre_archivo'].'">'.$factura['nombre_archivo'].'</li>';
+					}
+					$lista_facturas .= '</ul>';
+					$lista_archivos['facturas'] = $lista_facturas;
+				}
+				else
+				{
+					$lista_archivos['facturas'] = 'No hay ninguna factura asignada al equipo.';
+				}
+				
+				if ( count($archivos_equipo['cotizaciones']) > 0 )
+				{
+					$lista_cotizaciones = '<ul>';
+					foreach ( $archivos_equipo['cotizaciones'] as $cotizacion )
+					{
+						$lista_cotizaciones .= '<li><a href="/equipos/cotizaciones/'.$cotizacion['nombre_archivo'].'">'.$cotizacion['nombre_archivo'].'</li>';
+					}
+					$lista_cotizaciones .= '</ul>';
+					$lista_archivos['cotizaciones'] = $lista_cotizaciones;
+				}
+				else
+				{
+					$lista_archivos['cotizaciones'] = 'No hay ninguna cotización asignada al equipo.';
+				}
+			}
 			
+			$this->set('lista_archivos', $lista_archivos);
 			$this->set('producto', $producto);
 			$this->set('equipo', $equipo);
 			$this->set('edificio', $edificio);

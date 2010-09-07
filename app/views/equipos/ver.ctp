@@ -48,13 +48,6 @@ echo $javascript->link('equipos/ver');
                         <td colspan="3" width="210"><?php echo $producto['Producto']['prousu_placa']; ?></td>
                      </tr>
                      
-                     <!--<tr><td height="10" colspan="4"/></tr>
-                     
-                     <tr align="left">
-                        <td class='subtitulo' width='90'>Estado:</td>
-                        <td colspan="3" width="210"><php echo $equipo['Equipo']['estado']; ?></td>
-                     </tr> -->
-                     
                      <tr><td height="10" colspan="4"/></tr>
                      <tr><td height="1" class="linea" colspan="4"/></tr>
                      <tr><td height="10" colspan="4"/></tr>
@@ -108,14 +101,41 @@ echo $javascript->link('equipos/ver');
                         <td colspan="3"><?php echo $equipo['Equipo']['fecha_recibido_satisfaccion']; ?></td>
                      </tr>
                      
-                     <!--<tr><td height="10" colspan="4"/></tr>
-	
-                     <tr align="left">
-                        <td class='subtitulo' width='90'>Garantía:</td>
-                        <td colspan="3"><php echo $equipo['Equipo']['garantia'].' meses.'; ?></td>
-                     </tr> -->
-                     
                      <tr><td height="10" colspan="4"/></tr>
+                     <tr><td height="1" class="linea" colspan="4"/></tr>
+                     <tr><td height="10" colspan="4"/></tr>
+							
+							<tr align="left">
+                        <td colspan="4">
+									<fieldset>
+										<legend class="subtitulo">Documentos</legend>
+										<table width="100%">
+											<tr align="left">
+												<td class='subtitulo' width='50' valign="top">Certificados:</td>
+												<td colspan="3" width="210"><div id='lista_certificados'><?php echo $lista_archivos['certificados']; ?></div></td>
+											</tr>
+											<tr align="left">
+												<td class='subtitulo' width='50' valign="top">Garantías:</td>
+												<td colspan="3" width="210"><div id='lista_garantias'><?php echo $lista_archivos['garantias']; ?></div></td>
+											</tr>
+											<tr align="left">
+												<td class='subtitulo' width='50' valign="top">Manuales:</td>
+												<td colspan="3" width="210"><div id='lista_manuales'><?php echo $lista_archivos['manuales']; ?></div></td>
+											</tr>
+											<tr align="left">
+												<td class='subtitulo' width='50' valign="top">Facturas:</td>
+												<td colspan="3" width="210"><div id='lista_facturas'><?php echo $lista_archivos['facturas']; ?></div></td>
+											</tr>
+											<tr align="left">
+												<td class='subtitulo' width='50' valign="top">Cotizaciones:</td>
+												<td colspan="3" width="210"><div id='lista_cotizaciones'><?php echo $lista_archivos['cotizaciones']; ?></div></td>
+											</tr>
+										</table>
+									</fieldset>
+								</td>
+                     </tr>
+							
+							<tr><td height="10" colspan="4"/></tr>
                      <tr><td height="1" class="linea" colspan="4"/></tr>
                      <tr><td height="10" colspan="4"/></tr>
                      
