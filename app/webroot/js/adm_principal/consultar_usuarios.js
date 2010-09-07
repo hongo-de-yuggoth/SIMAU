@@ -6,7 +6,7 @@ function cargar_tabla(datos_json)
 	if ( datos_json.resultado == true )
 	{
 		// la cargamos en la página.
-		var thead = '<thead><tr><th>Nombre</th><th>Cédula</th><th>Login</th><th>Dependencia</th><th>Tipo de Usuario</th></tr></thead>';
+		var thead = '<thead><tr><th>Nombre</th><th>Cédula</th><th>Login</th><th>Dependencia</th><th>Tipo de Usuario</th><th>Estado</th></tr></thead>';
 		var tbody = '<tbody></tbody>';
 		jQuery('#tabla_resultados').empty().html(thead).append(tbody);
 		jQuery('#tabla_resultados tbody').html(datos_json.filas_tabla);

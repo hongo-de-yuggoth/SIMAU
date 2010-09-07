@@ -6,6 +6,12 @@ class SmuqUsuariosController extends AppController
 	var $uses  = array('SmuqUsuario', 'Usuario');
 	var $id_grupo = '*';
 	
+	var $estados = array
+	(
+		0 => 'Desactivado',
+		1 => 'Activado'
+	);
+	
 	//--------------------------------------------------------------------------
 	
 	function exportar_xls($frase_busqueda, $criterio_campo, $criterio_dependencia, $criterio_tipo_usuario)
@@ -541,7 +547,8 @@ class SmuqUsuariosController extends AppController
 				$filas_tabla .= '<td>'.$usuario['Usuario']['Usu_cedula'].'</td>';
 				$filas_tabla .= '<td>'.$usuario['Usuario']['Usu_login'].'</td>';
 				$filas_tabla .= '<td>'.mb_convert_case($usuario['CentroCosto']['Cencos_nombre'], MB_CASE_TITLE, "UTF-8").'</td>';
-				$filas_tabla .= '<td>Usuario de Dependencia</td></tr>';
+				$filas_tabla .= '<td>Usuario de Dependencia</td>';
+				$filas_tabla .= '<td>'.$this->estados[1].'</td></tr>';
 			}
 			$datos_json['filas_tabla'] = $filas_tabla;
 			$datos_json['count'] = count($usuarios_info);
@@ -604,7 +611,8 @@ class SmuqUsuariosController extends AppController
 				$filas_tabla .= '<td>'.$usuario['SmuqUsuario']['cedula'].'</td>';
 				$filas_tabla .= '<td>'.$usuario['SmuqUsuario']['login'].'</td>';
 				$filas_tabla .= '<td>Equipo Mantenimiento - Activos Fijos</td>';
-				$filas_tabla .= '<td>'.$usuario['Grupo']['name'].'</td></tr>';
+				$filas_tabla .= '<td>'.$usuario['Grupo']['name'].'</td>';
+				$filas_tabla .= '<td>'.$this->estados[$usuario['SmuqUsuario']['activo']].'</td></tr>';
 			}
 			$datos_json['filas_tabla'] = $filas_tabla;
 			$datos_json['count'] = count($usuarios_info);
