@@ -56,6 +56,7 @@ class SmuqUsuariosController extends AppController
 					),
 					'conditions' => array
 					(
+						'SmuqUsuario.activo' => 1,
 						'SmuqUsuario.login' => strtolower($data['SmuqUsuario']['login']),
 						'SmuqUsuario.clave' => Security::hash($data['SmuqUsuario']['clave'], null, true)
 					)
