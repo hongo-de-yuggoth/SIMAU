@@ -141,7 +141,7 @@ echo $javascript->link('adm_principal/consultar_reportes');
 						<div id='reporte' style='display:block; overflow:auto; width:580px;'>
 							<img id='img_reporte' src="" />
 						</div>
-						<div id="error_consulta" class="textoError" style="display:none;">No se encontraron solicitudes de esta dependencia.</div>
+						<div id="error_consulta" class="textoError" style="display:none;"></div>
 					</td>
 				</tr>
 			</tbody></table>

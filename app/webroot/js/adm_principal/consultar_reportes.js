@@ -99,7 +99,14 @@ jQuery(document).ready(function()
 				else
 				{
 					jQuery('#img_reporte').hide();
-					jQuery('#error_consulta').show();
+					if ( reporte_seleccionado == 'solicitudes_tecnico_años' )
+					{
+						jQuery('#error_consulta').html('No se encontraron solicitudes solucionadas por este técnico.').show();
+					}
+					else
+					{
+						jQuery('#error_consulta').html('No se encontraron solicitudes de esta dependencia').show();
+					}
 				}
 			}
 		});
