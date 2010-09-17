@@ -15,7 +15,7 @@ class SolicitudesController extends AppController
 		'p' => 'Pendiente',
 		's' => 'Solucionada'
 	);
-	
+
 	var $encabezado_pdf =
 	'<table width="100%%" cellspacing="0" cellpadding="3" border="1"><tbody>
 		<tr align="left">
@@ -31,7 +31,7 @@ class SolicitudesController extends AppController
 		<tr align="left"><td width="*" align="center" colspan="4"><b>SOLICITUD DE MANTENIMIENTO, CALIBRACIÓN Y/O CERTIFICACIÓN DE EQUIPOS No.%s</b></td></tr>
 	</tbody></table>';
 	//--------------------------------------------------------------------------
-	
+
 	function exportar_xls($frase_busqueda, $criterio_fecha, $fecha_1, $fecha_2, $mostrar_solicitudes, $criterio_campo, $tipo_servicio)
 	{
 		$datos = json_decode($this->requestAction('/solicitudes/buscar_xls/'.$frase_busqueda.'/'.$criterio_fecha.'/'.$fecha_1.'/'.$fecha_2.'/'.$mostrar_solicitudes.'/'.$criterio_campo.'/'.$tipo_servicio));
@@ -39,9 +39,9 @@ class SolicitudesController extends AppController
 		$this->set('total_registros',$datos->count);
 		$this->render('exportar_xls','exportar_xls');
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function usr_exportar_xls($frase_busqueda, $criterio_fecha, $fecha_1, $fecha_2, $mostrar_solicitudes, $criterio_campo, $tipo_servicio)
 	{
 		$datos = json_decode($this->requestAction('/solicitudes/usr_buscar_xls/'.$frase_busqueda.'/'.$criterio_fecha.'/'.$fecha_1.'/'.$fecha_2.'/'.$mostrar_solicitudes.'/'.$criterio_campo.'/'.$tipo_servicio));
@@ -49,29 +49,29 @@ class SolicitudesController extends AppController
 		$this->set('total_registros',$datos->count);
 		$this->render('exportar_xls','exportar_xls');
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function exportar_pdf($id_solicitud)
 	{
 		// Sobrescribimos para que no aparezcan los resultados de debuggin
 		// ya que sino daria un error al generar el pdf.
 		Configure::write('debug',0);
-		
+
 		// Se obtienen los datos de la solicitud.
 		$filas_tabla = $this->requestAction('/solicitudes/info_solicitud_pdf/'.$id_solicitud);
 		$this->set('filas_tabla', $filas_tabla);
 		$this->set('id_solicitud',$id_solicitud);
 		$this->render('exportar_pdf','exportar_pdf');
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function crear()
 	{
 		$this->autoLayout = false;
 		$this->autoRender = false;
-		
+
 		if ( !empty($this->data) )
 		{
 			if ( $this->Solicitud->save($this->data) )
@@ -84,7 +84,7 @@ class SolicitudesController extends AppController
 				$this->Session->write('Controlador.resultado_guardar', 'error');
 				$this->Session->delete('Controlador.id_solicitud_recien_creada');
 			}
-			
+
 			$this->redirect($this->referer());
 		}
 	}
@@ -93,7 +93,7 @@ class SolicitudesController extends AppController
 
 	function __crear_filas($solicitudes_info)
 	{
-		
+
 		$datos_json['resultado'] = false;
 		if ( isset($solicitudes_info[0]['Solicitud']) )
 		{
@@ -123,7 +123,7 @@ class SolicitudesController extends AppController
 	}
 
 	//--------------------------------------------------------------------------
-	
+
 	function _crear_filas_xls($solicitudes_info)
 	{
 		$datos_json['resultado'] = false;
@@ -139,7 +139,7 @@ class SolicitudesController extends AppController
 					$listado .= $this->tipo_servicio[$ts[$i]].' , ';
 				}
 				$solicitud['Solicitud']['tipo_servicio'] = substr($listado, 0, -3);
-				
+
 				$filas_tabla .= '<tr><td>'.$solicitud['Solicitud']['id'].'</td>';
 				$filas_tabla .= '<td>'.mb_convert_case($solicitud['CentroCosto']['Cencos_nombre'], MB_CASE_TITLE, "UTF-8").'</td>';
 				$filas_tabla .= '<td>'.$solicitud['Usuario']['Usu_cedula'].'</td>';
@@ -163,9 +163,9 @@ class SolicitudesController extends AppController
 		}
 		return $datos_json;
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function cargar_tipos_de_servicio()
 	{
 		$this->autoLayout = false;
@@ -179,7 +179,7 @@ class SolicitudesController extends AppController
 		$opciones_servicios = '<option value="0">Todos los servicios</option>'.$opciones_servicios;
 		return $opciones_servicios;
 	}
-	
+
 	//--------------------------------------------------------------------------
 
 	function info_solicitud_pdf($id)
@@ -188,7 +188,7 @@ class SolicitudesController extends AppController
 		$this->loadModel('SmuqUsuario');
 		$this->loadModel('Edificio');
 		$this->loadModel('Dependencia');
-		
+
 		$this->Solicitud->recursive = 1;
 		$solicitud = $this->Solicitud->read(null, $id);
 		if ( !empty($solicitud) )
@@ -206,7 +206,7 @@ class SolicitudesController extends AppController
 			{
 				$adm_sol = array('SmuqUsuario'=>array('nombre'=>'No Disponible.'));
 			}
-			
+
 			$solicitante = $this->SmuqUsuario->find('first', array
 			(
 				'fields' => array
@@ -242,7 +242,7 @@ class SolicitudesController extends AppController
 				$solicitante['SmuqUsuario']['email'] = 'No Disponible.';
 				$solicitante['SmuqUsuario']['telefono'] = 'No Disponible.';
 			}
-			
+
 			$dependencia = $this->Dependencia->find('first', array
 			(
 				'fields' => array('Dependencia.id_edificio'),
@@ -263,19 +263,19 @@ class SolicitudesController extends AppController
 			{
 				$edificio['Edificio']['name'] = 'No disponible';
 			}
-			
+
 			$equipo = $this->Producto->find('first', array
 			(
 				'fields' => array('Producto.prousu_pro_nombre', 'Producto.prousu_modelo', 'Producto.prousu_marca'),
 				'conditions' => array('Producto.prousu_placa' => $solicitud['Solicitud']['placa_inventario'])
 			));
-			
+
 			$contratista = $this->SmuqUsuario->find('first', array
 			(
 				'fields' => array('SmuqUsuario.nombre'),
 				'conditions' => array('SmuqUsuario.cedula' => $this->Session->read('Usuario.cedula'))
 			));
-			
+
 			if ( !empty($equipo) )
 			{
 				$tmp = split(' ', $solicitud['Solicitud']['created']);
@@ -309,7 +309,7 @@ class SolicitudesController extends AppController
 					$equipo['Producto']['prousu_modelo'] = mb_convert_case($equipo['Producto']['prousu_modelo'], MB_CASE_TITLE, "UTF-8");
 				}
 			}
-			
+
 			$filas_tabla['parte_2'] = '';
 			if ( $solicitud['Solicitud']['estado'] == 's' )
 			{
@@ -339,7 +339,7 @@ class SolicitudesController extends AppController
 								<td colspan="3" width="*">'.$solicitud['Solicitud']['observaciones_solucion'].'</td>
 							</tr>
 						</tbody></table>
-						
+
 						<table width="100%" cellspacing="0" cellpadding="0" border="0"><tbody>
 							<tr><td height="30" colspan="3"></td></tr>
 							<tr align="left">
@@ -367,16 +367,16 @@ class SolicitudesController extends AppController
 					</div></td>
 				</tr>';
 			}
-			
+
 			$encabezado = sprintf($this->encabezado_pdf, $id);
 			$filas_tabla['parte_1'] =
 			'<table border="0" width="100%" cellspacing="0" cellpadding="0"><tbody>
 				<tr align="left">
 					<td colspan="2">'.$encabezado.'</td>
 				</tr>
-				
+
 				<tr><td height="5" colspan="3"></td></tr>
-				
+
 				<tr align="left">
 					<td colspan="3" width="*"><div>
 						<table width="100%" cellspacing="0" cellpadding="3" border="1"><tbody>
@@ -412,7 +412,7 @@ class SolicitudesController extends AppController
 						</tbody></table>
 					</div></td>
 				</tr>
-						
+
 				<tr align="left">
 					<td colspan="3" width="*"><div>
 						<table width="100%" cellspacing="0" cellpadding="3" border="1"><tbody>
@@ -446,7 +446,7 @@ class SolicitudesController extends AppController
 						</tbody></table>
 					</div></td>
 				</tr>';
-			
+
 			return $filas_tabla['parte_1'].$filas_tabla ['parte_2'].'</tbody></table>';
 		}
 		else
@@ -454,9 +454,9 @@ class SolicitudesController extends AppController
 			return 'false';
 		}
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function info_solicitud($id)
 	{
 		$this->autoLayout = false;
@@ -464,9 +464,9 @@ class SolicitudesController extends AppController
 		$solicitudes_info = $this->Solicitud->findById($id);
 		return json_encode($this->__crear_filas(array($solicitudes_info)));
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function usr_info_solicitud($id)
 	{
 		$this->autoLayout = false;
@@ -481,16 +481,16 @@ class SolicitudesController extends AppController
 		));
 		return json_encode($this->__crear_filas(array($solicitudes_info)));
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function ver($id)
 	{
 		$this->loadModel('Producto');
 		$this->loadModel('SmuqUsuario');
 		$this->loadModel('Edificio');
 		$this->loadModel('Dependencia');
-		
+
 		$this->set('opcion_seleccionada', 'consultar_solicitudes');
 		$id_grupo = $this->Session->read('Usuario.id_grupo');
 		if ( $id_grupo == '1' )
@@ -509,7 +509,7 @@ class SolicitudesController extends AppController
 																	  'action' => 'get_opciones_menu'));
 		}
 		$this->set('opciones_menu', $opciones_menu);
-		
+
 		// Revisamos variables de Session.
 		if ( $this->Session->check('Controlador.resultado_guardar') && $this->Session->read('Controlador.resultado_guardar')!='' )
 		{
@@ -521,7 +521,7 @@ class SolicitudesController extends AppController
 				{
 					$this->set('mensaje_notificacion', 'La solicitud de servicio #'.$this->Session->read('Controlador.resultado_id').' ha sido solucionada y archivada, y se ha enviado un email con la información de la solicitud ');
 				}
-				else 
+				else
 				{
 					$this->set('mensaje_notificacion', 'La solicitud de servicio #'.$this->Session->read('Controlador.resultado_id').' ha sido solucionada y archivada.');
 				}
@@ -548,10 +548,10 @@ class SolicitudesController extends AppController
 				$this->set('mensaje_notificacion', 'No se pudieron guardar los cambios.');
 			}
 		}
-		
+
 		$this->Session->delete('Controlador.resultado_guardar');
 		$this->Session->delete('Controlador.resultado_guardar_cambios');
-		
+
 		$this->Solicitud->recursive = 1;
 		$solicitud_info = $this->Solicitud->read(null, $id);
 		if ( !empty($solicitud_info) )
@@ -573,7 +573,7 @@ class SolicitudesController extends AppController
 			{
 				$this->set('adm_sol', array('SmuqUsuario'=>array('nombre'=>'No Disponible.')));
 			}
-			
+
 			$cargo_solicitante = '';
 			$solicitante = $this->SmuqUsuario->find('first', array
 			(
@@ -611,7 +611,7 @@ class SolicitudesController extends AppController
 				$solicitante['SmuqUsuario']['telefono'] = 'No Disponible.';
 			}
 			$this->set('solicitante', $solicitante);
-			
+
 			$dependencia = $this->Dependencia->find('first', array
 			(
 				'fields' => array('Dependencia.id_edificio'),
@@ -636,19 +636,19 @@ class SolicitudesController extends AppController
 			{
 				$solicitud_info['Edificio']['nombre'] = 'No disponible';
 			}
-			
+
 			$equipo_info = $this->Producto->find('first', array
 			(
 				'fields' => array('Producto.prousu_pro_nombre', 'Producto.prousu_modelo', 'Producto.prousu_marca'),
 				'conditions' => array('Producto.prousu_placa' => $solicitud_info['Solicitud']['placa_inventario'])
 			));
-			
+
 			$contratista_info = $this->SmuqUsuario->find('first', array
 			(
 				'fields' => array('SmuqUsuario.nombre'),
 				'conditions' => array('SmuqUsuario.cedula' => $this->Session->read('Usuario.cedula'))
 			));
-			
+
 			if ( !empty($equipo_info) )
 			{
 				$tmp = split(' ', $solicitud_info['Solicitud']['created']);
@@ -657,7 +657,7 @@ class SolicitudesController extends AppController
 				$solicitud_info['Solicitud']['fecha'] = $this->Tiempo->fecha_espaniol(date('Y-n-j-N', mktime(0,0,0,$mes, $dia, $anio)));
 				$solicitud_info['CentroCosto']['Cencos_nombre'] = mb_convert_case($solicitud_info['CentroCosto']['Cencos_nombre'], MB_CASE_TITLE, "UTF-8");
 				$solicitud_info['Usuario']['Usu_nombre'] = mb_convert_case($solicitud_info['Usuario']['Usu_nombre'], MB_CASE_TITLE, "UTF-8");
-				
+
 				$ts = split(',', $solicitud_info['Solicitud']['tipo_servicio']);
 				$listado = '';
 				for ( $i=0; $i < count($ts); $i++ )
@@ -665,7 +665,7 @@ class SolicitudesController extends AppController
 					$listado .= '<li>'.$this->tipo_servicio[$ts[$i]].'</li>';
 				}
 				$solicitud_info['Solicitud']['tipo_servicio'] = $listado;
-				
+
 				$equipo_info['Producto']['prousu_pro_nombre'] = mb_convert_case($equipo_info['Producto']['prousu_pro_nombre'], MB_CASE_TITLE, "UTF-8");
 				if ( empty($equipo_info['Producto']['prousu_marca']) )
 				{
@@ -687,7 +687,7 @@ class SolicitudesController extends AppController
 				{
 					$solicitud_info['Solicitud']['contratista'] = $contratista_info['SmuqUsuario']['nombre'];
 				}
-				
+
 				$this->set('solicitud', $solicitud_info);
 				$this->set('equipo', $equipo_info);
 				$this->set('usuario', array
@@ -704,22 +704,22 @@ class SolicitudesController extends AppController
 				{
 					$this->set('display_link_pdf', 'none');
 				}
-				
+
 			}
 		}
 	}
 
 	//--------------------------------------------------------------------------
-	
+
 	function guardar_solucion()
 	{
 		$this->autoLayout = false;
 		$this->autoRender = false;
-		
+
 		if ( !empty($this->data) )
 		{
 			$this->Solicitud->read(null, $this->data['Solicitud']['id']);
-			
+
 			if ( $this->Solicitud->save($this->data) )
 			{
 				$this->Session->write('Controlador.resultado_guardar_cambios', 'exito');
@@ -728,30 +728,30 @@ class SolicitudesController extends AppController
 			{
 				$this->Session->write('Controlador.resultado_guardar_cambios', 'error');
 			}
-			
+
 			$this->redirect($this->referer());
 		}
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function solucionar()
 	{
 		$this->autoLayout = false;
 		$this->autoRender = false;
 		$this->loadModel('Notificacion');
 		$this->loadModel('SmuqUsuario');
-		
+
 		if ( !empty($this->data) )
 		{
 			$this->data['Solicitud']['estado'] = 's';
 			$this->data['Solicitud']['solucionada'] = date('Y-m-d H:i:s');
 			$solicitud_info = $this->Solicitud->read(null, $this->data['Solicitud']['id']);
-			
+
 			if ( $this->Solicitud->save($this->data) )
 			{
 				$this->Session->write('Controlador.resultado_guardar', 'exito');
-				
+
 				// Creamos la notificación correspondiente.
 				$this->Notificacion->save
 				(
@@ -762,7 +762,7 @@ class SolicitudesController extends AppController
 						'leido'=>'no'
 					))
 				);
-				
+
 				// Ahora debemos informar al usuario sobre la solución de su
 				// solicitud de servicio (EMAIL)
 				$smuq_usuario = $this->SmuqUsuario->find('first', array
@@ -795,13 +795,13 @@ class SolicitudesController extends AppController
 				$this->Session->write('Controlador.resultado_guardar', 'error');
 				$this->Session->write('Controlador.resultado_email', 'error');
 			}
-			
+
 			$this->redirect($this->referer());
 		}
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function email()
 	{
 		$this->autoLayout = false;
@@ -811,26 +811,26 @@ class SolicitudesController extends AppController
 		$this->loadModel('Edificio');
 		$this->loadModel('Dependencia');
 		$this->Email->template = 'email/default';
-		
+
 		$id_solicitud = $this->Session->read('Email.id_solicitud');
 		$email_solicitante = $this->Session->read('Email.email_solicitante');
-		
+
 		//$id_solicitud = 2;
 		//$email_solicitante = 'dementriomacias@hotmail.com';
-		
+
 		$this->Solicitud->recursive = 1;
 		$solicitud_info = $this->Solicitud->read(null, $id_solicitud);
 		if ( !empty($solicitud_info) )
 		{
 			$solicitud_info['Solicitud']['estado'] = $this->estados[$solicitud_info['Solicitud']['estado']];
-			
+
 			$adm_sol_info = $this->SmuqUsuario->find('first', array
 			(
 				'fields' => array('SmuqUsuario.nombre'),
 				'conditions' => array('SmuqUsuario.cedula' => $solicitud_info['Solicitud']['cedula_adm_sol'])
 			));
 			$this->set('adm_sol', $adm_sol_info);
-			
+
 			$cargo_solicitante = '';
 			$solicitante = $this->SmuqUsuario->find('first', array
 			(
@@ -850,7 +850,7 @@ class SolicitudesController extends AppController
 				$cargo_solicitante = 'No Disponible.';
 			}
 			$this->set('cargo_solicitante', $cargo_solicitante);
-			
+
 			$dependencia = $this->Dependencia->find('first', array
 			(
 				'fields' => array('Dependencia.id_edificio'),
@@ -875,19 +875,19 @@ class SolicitudesController extends AppController
 			{
 				$solicitud_info['Edificio']['nombre'] = 'No disponible';
 			}
-			
+
 			$equipo_info = $this->Producto->find('first', array
 			(
 				'fields' => array('Producto.prousu_pro_nombre', 'Producto.prousu_modelo', 'Producto.prousu_marca'),
 				'conditions' => array('Producto.prousu_placa' => $solicitud_info['Solicitud']['placa_inventario'])
 			));
-			
+
 			$contratista_info = $this->SmuqUsuario->find('first', array
 			(
 				'fields' => array('SmuqUsuario.nombre'),
 				'conditions' => array('SmuqUsuario.cedula' => $this->Session->read('Usuario.cedula'))
 			));
-			
+
 			if ( !empty($equipo_info) )
 			{
 				$tmp = split(' ', $solicitud_info['Solicitud']['created']);
@@ -918,20 +918,20 @@ class SolicitudesController extends AppController
 				{
 					$solicitud_info['Solicitud']['contratista'] = $contratista_info['SmuqUsuario']['nombre'];
 				}
-				
+
 				$this->set('encabezado_pdf', $this->encabezado_pdf);
 				$this->set('solicitud', $solicitud_info);
 				$this->set('equipo', $equipo_info);
 				$this->set('usuario', array('cedula'=>$this->Session->read('Usuario.cedula'),
 													 'id_grupo'=>$this->Session->read('Usuario.id_grupo')));
 			}
-			
+
 			$this->Email->to = $email_solicitante;
 			$this->Email->subject = 'Información: Solicitud de Mantenimiento #'.$id_solicitud;
-			
+
 			//$this->Email->attach($fully_qualified_filename, optionally $new_name_when_attached);
 			// You can attach as many files as you like.
-			
+
 			$result = $this->Email->send();
 			if ( !$result )
 			{
@@ -947,14 +947,14 @@ class SolicitudesController extends AppController
 			return 'false';
 		}
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function buscar($frase_busqueda, $criterio_fecha, $fecha_1, $fecha_2, $mostrar_solicitudes, $criterio_campo, $tipo_servicio)
 	{
 		$this->autoLayout = false;
 		$this->autoRender = false;
-		
+
 		$condiciones = array();
 		$pre_con = array();
 		$pre_con_like = array();
@@ -980,7 +980,7 @@ class SolicitudesController extends AppController
 		}
 		if ( $tipo_servicio != 0 )
 		{
-			$pre_con['tipo_servicio'] = $tipo_servicio;
+			$condiciones['tipo_servicio LIKE'] = '%'.$tipo_servicio.'%';
 		}
 		if ( $frase_busqueda != 'null' )
 		{
@@ -1005,21 +1005,21 @@ class SolicitudesController extends AppController
 				$condiciones[$criterio] = $crit_valor;
 			}
 		}
-		
+
 		$solicitudes = $this->Solicitud->find('all', array
 		(
 			'conditions' => $condiciones
 		));
 		return json_encode($this->__crear_filas($solicitudes));
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function usr_buscar($frase_busqueda, $criterio_fecha, $fecha_1, $fecha_2, $mostrar_solicitudes, $criterio_campo, $tipo_servicio)
 	{
 		$this->autoLayout = false;
 		$this->autoRender = false;
-		
+
 		$condiciones = array();
 		$pre_con = array('Solicitud.cedula_usuario' => $this->Session->read('Usuario.cedula'));
 		$pre_con_like = array();
@@ -1068,21 +1068,21 @@ class SolicitudesController extends AppController
 				$condiciones[$criterio] = $crit_valor;
 			}
 		}
-		
+
 		$solicitudes = $this->Solicitud->find('all', array
 		(
 			'conditions' => $condiciones
 		));
 		return json_encode($this->__crear_filas($solicitudes));
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function buscar_xls($frase_busqueda, $criterio_fecha, $fecha_1, $fecha_2, $mostrar_solicitudes, $criterio_campo, $tipo_servicio)
 	{
 		$this->autoLayout = false;
 		$this->autoRender = false;
-		
+
 		$condiciones = array();
 		$pre_con = array();
 		$pre_con_like = array();
@@ -1133,21 +1133,21 @@ class SolicitudesController extends AppController
 				$condiciones[$criterio] = $crit_valor;
 			}
 		}
-		
+
 		$solicitudes = $this->Solicitud->find('all', array
 		(
 			'conditions' => $condiciones
 		));
 		return json_encode($this->_crear_filas_xls($solicitudes));
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function usr_buscar_xls($frase_busqueda, $criterio_fecha, $fecha_1, $fecha_2, $mostrar_solicitudes, $criterio_campo, $tipo_servicio)
 	{
 		$this->autoLayout = false;
 		$this->autoRender = false;
-		
+
 		$condiciones = array();
 		$pre_con = array('Solicitud.cedula_usuario' => $this->Session->read('Usuario.cedula'));
 		$pre_con_like = array();
@@ -1196,14 +1196,14 @@ class SolicitudesController extends AppController
 				$condiciones[$criterio] = $crit_valor;
 			}
 		}
-		
+
 		$solicitudes = $this->Solicitud->find('all', array
 		(
 			'conditions' => $condiciones
 		));
 		return json_encode($this->_crear_filas_xls($solicitudes));
 	}
-	
+
 	//--------------------------------------------------------------------------
 }
 ?>
