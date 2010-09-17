@@ -237,7 +237,7 @@
  *
  */
 	Cache::config('default', array('engine' => 'File'));
-   
+
 
 //------------------------------------+
 // Constantes SMUQLAB                 |

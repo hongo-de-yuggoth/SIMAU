@@ -143,7 +143,7 @@ class File extends Object {
 			}
 		}
 
-		$this->handle = fopen($this->path, $mode);
+		$this->handle = @fopen($this->path, $mode);
 		if (is_resource($this->handle)) {
 			return true;
 		}
@@ -277,9 +277,9 @@ class File extends Object {
  * @access public
  */
 	function delete() {
-		clearstatcache();
+		clearstatcache(true);
 		if ($this->exists()) {
-			return unlink($this->path);
+			return @unlink($this->path);
 		}
 		return false;
 	}
