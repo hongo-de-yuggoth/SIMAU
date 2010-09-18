@@ -82,10 +82,10 @@ jQuery(document).ready(function()
 {
 	jQuery('div.cuerpo_menu ul #'+jQuery('#opcion_seleccionada').val()).addClass('selected');
 	jQuery('#r_anio_mes').attr('checked', 'true');
-	
+
 	//--------------------------------------------------------------------------
 	// Programamos los diferentes EVENTOS.
-	
+
 	jQuery('#boton_cal_1').click(function()
 	{
 		displayCalendar(jQuery('#fecha_inicial').get(0),'yyyy-mm-dd',jQuery('#boton_cal_1').get(0));
@@ -94,19 +94,19 @@ jQuery(document).ready(function()
 	{
 		displayCalendar(jQuery('#fecha_final').get(0),'yyyy-mm-dd',jQuery('#boton_cal_2').get(0));
 	});
-	
+
 	jQuery('#r_anio_mes').change(function()
 	{
 		jQuery('div[class=div_busqueda]').hide();
 		jQuery('#fecha_anio_mes').show();
 	});
-	
+
 	jQuery('#r_rango_fecha').change(function()
 	{
 		jQuery('div[class=div_busqueda]').hide();
 		jQuery('#fecha_rango').show();
 	});
-	
+
 	jQuery('#select_anio').change(function()
 	{
 		if ( jQuery(this).val() == 0 )
@@ -119,7 +119,7 @@ jQuery(document).ready(function()
 			jQuery('#select_mes').removeAttr('disabled');
 		}
 	});
-	
+
 	jQuery('#boton_buscar_solicitudes').click(function()
 	{
 		jQuery('#busqueda').val(jQuery.trim(jQuery('#busqueda').val()));
@@ -152,8 +152,19 @@ jQuery(document).ready(function()
 				buscar_solicitud(frase_busqueda);
 			}
 		}
+		else if ( criterio_campo != 'todos' && frase_busqueda == '' )
+		{
+			// Mostrar error...
+			$('#error_numero_solicitud').html('Debes escribir una palabra de búsqueda.').show();
+			$('#tabla_resultados tbody').html('');
+			$('#resultados').hide();
+			$('#error_consulta').hide();
+			$('#total_registros').html('').hide();
+			$('#archivo_xls').hide();
+		}
 		else
 		{
+			$('#error_numero_solicitud').html('').hide();
 			var fecha_1;
 			var fecha_2;
 			var criterio_fecha = jQuery('#criterio_fecha input[checked=true]:radio').val();
@@ -172,7 +183,7 @@ jQuery(document).ready(function()
 				fecha_1 = jQuery('#select_anio').val();
 				fecha_2 = jQuery('#select_mes').val();
 			}
-			
+
 			if ( frase_busqueda == '' )
 			{
 				frase_busqueda = 'null';
