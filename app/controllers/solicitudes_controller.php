@@ -984,9 +984,13 @@ class SolicitudesController extends AppController
 		}
 		if ( $frase_busqueda != 'null' )
 		{
-			if ( $criterio_campo != 'todos' )
+			if ( $criterio_campo == 'solicitante' )
 			{
-				$condiciones[$criterio_campo.' LIKE'] = '%'.$frase_busqueda.'%';
+				$pre_con['cedula_usuario'] = $frase_busqueda;
+			}
+			else if ( $criterio_campo != 'todos' )
+			{
+				$pre_con[$criterio_campo.' LIKE'] = '%'.$frase_busqueda.'%';
 			}
 			else
 			{
@@ -995,7 +999,7 @@ class SolicitudesController extends AppController
 				$pre_con_like['observaciones LIKE'] = '%'.$frase_busqueda.'%';
 				$pre_con_like['repuestos_mano_obra LIKE'] = '%'.$frase_busqueda.'%';
 				$pre_con_like['contratista LIKE'] = '%'.$frase_busqueda.'%';
-				$condiciones['OR'] = $pre_con_like;
+				$pre_con['OR'] = $pre_con_like;
 			}
 		}
 		if ( count($pre_con) > 0 )

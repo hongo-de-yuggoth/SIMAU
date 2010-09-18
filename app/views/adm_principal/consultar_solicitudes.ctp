@@ -49,14 +49,13 @@ echo $javascript->link('adm_principal/consultar_solicitudes');
 										<select id="select_campo">
 											<option value="todos">Todos los campos</option>
 											<option value="id">número de solicitud</option>
+											<option value="solicitante">cédula del funcionario solicitante</option>
 											<option value="placa_inventario">placa inventario</option>
 											<option value="descripcion">descripción</option>
 											<option value="observaciones">observaciones</option>
 											<option value="repuestos_mano_obra">repuestos / mano de obra</option>
 											<option value="contratista">contratista</option>
 										</select>
-										<!-- <option value="solicitante">solicitante</option>
-											<option value="Cencos_nombre">dependencia</option> -->
 									</td>
 								</tr>
 								<tr align="left">
