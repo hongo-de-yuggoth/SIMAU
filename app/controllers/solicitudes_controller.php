@@ -980,7 +980,7 @@ class SolicitudesController extends AppController
 		}
 		if ( $tipo_servicio != 0 )
 		{
-			$condiciones['tipo_servicio LIKE'] = '%'.$tipo_servicio.'%';
+			$pre_con['tipo_servicio LIKE'] = '%'.$tipo_servicio.'%';
 		}
 		if ( $frase_busqueda != 'null' )
 		{
