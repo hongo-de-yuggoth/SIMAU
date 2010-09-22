@@ -49,13 +49,14 @@ echo $javascript->link('adm_principal/consultar_solicitudes');
 										<select id="select_campo">
 											<option value="todos">Todos los campos</option>
 											<option value="id">número de solicitud</option>
-											<option value="solicitante">cédula del funcionario solicitante</option>
 											<option value="placa_inventario">placa inventario</option>
 											<option value="descripcion">descripción</option>
 											<option value="observaciones">observaciones</option>
 											<option value="repuestos_mano_obra">repuestos / mano de obra</option>
 											<option value="contratista">contratista</option>
 										</select>
+										<!-- <option value="solicitante">solicitante</option>
+											<option value="Cencos_nombre">dependencia</option> -->
 									</td>
 								</tr>
 								<tr align="left">
@@ -99,7 +100,7 @@ echo $javascript->link('adm_principal/consultar_solicitudes');
 											<table width="100%" cellspacing="0" cellpadding="0" border="0"><tbody>
 												<tr align="left">
 													<td class='subtitulo' width='70'>Año:</td>
-													<td><select id="select_anio"><?php echo $opciones_años; ?></select></td>
+													<td><select id="select_anio"><?php echo $opciones_anios; ?></select></td>
 												</tr>
 												<tr><td height="10" colspan="4"/></tr>
 												<tr align="left">

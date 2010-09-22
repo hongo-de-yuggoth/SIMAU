@@ -46,11 +46,11 @@ function construir_select_anio_final(anio_inicial)
 jQuery(document).ready(function()
 {
 	jQuery('div.cuerpo_menu ul #'+jQuery('#opcion_seleccionada').val()).addClass('selected');
-	construir_select_anio_final(jQuery('#año_inicial').val());
-	
+	construir_select_anio_final(jQuery('#anio_inicial').val());
+
 	//--------------------------------------------------------------------------
 	// Programamos los diferentes EVENTOS.
-	
+
 	jQuery('#boton_cargar_reporte').click(function()
 	{
 		var parametro = '/';
@@ -61,7 +61,7 @@ jQuery(document).ready(function()
 			parametro = parametro+param_anios;
 			if ( param_anios == 'rango' )
 			{
-				parametro = parametro+'/'+jQuery('#año_inicial').val()+'/'+jQuery('#año_final').val();
+				parametro = parametro+'/'+jQuery('#anio_inicial').val()+'/'+jQuery('#año_final').val();
 			}
 		}
 		else if ( reporte_seleccionado == 'servicios_meses' )	// rep + 1 params
@@ -80,7 +80,7 @@ jQuery(document).ready(function()
 		{
 			parametro = parametro+jQuery('#oficina_costos').val()+'/'+jQuery('#año_meses').val();
 		}
-		
+
 		$.ajax(
 		{
 			type: "POST",

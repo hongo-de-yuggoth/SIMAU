@@ -5,15 +5,15 @@ class SmuqUsuariosController extends AppController
 	var $helpers = array('Html', 'Form', 'Javascript');
 	var $uses  = array('SmuqUsuario', 'Usuario');
 	var $id_grupo = '*';
-	
+
 	var $estados = array
 	(
 		0 => 'Desactivado',
 		1 => 'Activado'
 	);
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function exportar_xls($frase_busqueda, $criterio_campo, $criterio_dependencia, $criterio_tipo_usuario)
 	{
 		$datos = json_decode($this->requestAction('/smuq_usuarios/buscar_xls/'.$frase_busqueda.'/'.$criterio_campo.'/'.$criterio_dependencia.'/'.$criterio_tipo_usuario));
@@ -21,9 +21,9 @@ class SmuqUsuariosController extends AppController
 		$this->set('total_registros',$datos->count);
 		$this->render('exportar_xls','exportar_xls');
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function _autenticado($data)
 	{
 		if ( !empty($data) )
@@ -127,32 +127,32 @@ class SmuqUsuariosController extends AppController
 										'action' => 'ir_a_casa'));
 		}
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function logout()
 	{
 		$this->Session->destroy();
 		$this->redirect(array('controller' => 'smuq_usuarios',
 									 'action' => 'login'));
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function denegado()
 	{
 		$this->set('refererido', $this->Session->read('referer'));
 		//$this->Session->delete('referer');
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function index()
 	{
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function ir_a_casa()
 	{
 		$this->autoLayout = false;
@@ -177,17 +177,17 @@ class SmuqUsuariosController extends AppController
 											'action' => 'crear_solicitud_mantenimiento'));
 			}
 		}
-		
+
 		$this->redirect($this->referer());
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function existe_cedula($cedula)
 	{
 		$this->autoLayout = false;
 		$this->autoRender = false;
-		
+
 		$usuario = $this->SmuqUsuario->find('first', array('conditions' => array('SmuqUsuario.cedula' => $cedula)));
 		if ( !empty($usuario) )
 		{
@@ -206,14 +206,14 @@ class SmuqUsuariosController extends AppController
 			}
 		}
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function existe_login($login)
 	{
 		$this->autoLayout = false;
 		$this->autoRender = false;
-		
+
 		$usuario = $this->SmuqUsuario->find('first', array('conditions' => array('SmuqUsuario.login' => strtolower($login))));
 		if ( !empty($usuario) )
 		{
@@ -232,9 +232,9 @@ class SmuqUsuariosController extends AppController
 			}
 		}
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function cargar_select($id_dependencia)
 	{
 		$this->autoLayout = false;
@@ -269,14 +269,14 @@ class SmuqUsuariosController extends AppController
 		}
 		return $opciones;
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function cargo_ajax($cedula)
 	{
 		$this->autoLayout = false;
 		$this->autoRender = false;
-		
+
 		// Se busca solo en SmuqUsuario, y si no está, entonces no tiene aun
 		// un cargo asignado en la BD.
 		$usuario = $this->SmuqUsuario->findByCedula($cedula);
@@ -289,9 +289,9 @@ class SmuqUsuariosController extends AppController
 			return 'No disponible.';
 		}
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function buscar_usuario_modificar($cedula)
 	{
 		$this->autoLayout = false;
@@ -299,16 +299,16 @@ class SmuqUsuariosController extends AppController
 		$this->loadModel('Edificio');
 		$this->loadModel('Dependencia');
 		$this->loadModel('CentroCosto');
-		
+
 		$usuario_info = $this->Usuario->find('first', array('conditions' => array('Usuario.Usu_cedula' => $cedula)));
 		$smuq_usuario_info = $this->SmuqUsuario->find('first', array('conditions' => array('SmuqUsuario.cedula' => $cedula)));
-		
+
 		// Es un usuario CENCOS?
 		if ( !empty($usuario_info) )
 		{
 			$centro_costo_info = $this->CentroCosto->findByCencosId($usuario_info['Usuario']['Usu_Cencos_id']);
 			$dependencia_info = $this->Dependencia->findByCencosId($usuario_info['Usuario']['Usu_Cencos_id']);
-			
+
 			if ( !empty($centro_costo_info) )
 			{
 				// Revizamos si la dependencia tiene un edificio asignado.
@@ -325,9 +325,9 @@ class SmuqUsuariosController extends AppController
 					$dependencia_info['Dependencia']['id_edificio'] = 0;
 					$edificio_info['Edificio']['name'] = 'No tiene un edificio asignado.';
 				}
-				
-				
-				
+
+
+
 				// creamos inputs hidden
 				$input_login = '<input id="login_usuario" type="hidden" value="'.$usuario_info['Usuario']['Usu_login'].'"/>';
 				$input_tipo_usuario = '<input id="tipo_usuario_usuario" type="hidden" value="3"/>';
@@ -342,7 +342,7 @@ class SmuqUsuariosController extends AppController
 				$input_nombre_dependencia = '<input id="nombre_dependencia" type="hidden" value="'.mb_convert_case($centro_costo_info['CentroCosto']['Cencos_nombre'], MB_CASE_TITLE, "UTF-8").'"/>';
 				$input_encontro ='<input id="encontro" type="hidden" value="true"/>';
 				$input_estado_usuario ='<input id="estado_usr" type="hidden" value="1"/>';
-				
+
 				return	$input_nombre.
 							$input_cedula.
 							$input_login.
@@ -374,7 +374,7 @@ class SmuqUsuariosController extends AppController
 			$input_nombre_dependencia = '<input id="nombre_dependencia" type="hidden" value="Mantenimiento Activos Fijos"/>';
 			$input_encontro ='<input id="encontro" type="hidden" value="true"/>';
 			$input_estado_usuario ='<input id="estado_usr" type="hidden" value="'.$smuq_usuario_info['SmuqUsuario']['activo'].'"/>';
-			
+
 			return	$input_nombre.
 						$input_cedula.
 						$input_login.
@@ -391,16 +391,16 @@ class SmuqUsuariosController extends AppController
 		}
 		return '<input id="encontro" type="hidden" value="false" />';
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function buscar_usuario_eliminar($cedula)
 	{
 		$this->autoLayout = false;
 		$this->autoRender = false;
 		$this->loadModel('Edificio');
 		$this->loadModel('Dependencia');
-		
+
 		$smuq_usuario_info = $this->SmuqUsuario->find('first', array
 		(
 			'conditions' => array
@@ -424,7 +424,7 @@ class SmuqUsuariosController extends AppController
 			$input_nombre_edificio = '<input id="nombre_edificio" type="hidden" value="Mantenimiento Activos Fijos"/>';
 			$input_nombre_dependencia = '<input id="nombre_dependencia" type="hidden" value="Mantenimiento Activos Fijos"/>';
 			$input_encontro ='<input id="encontro" type="hidden" value="true"/>';
-			
+
 			return	$input_nombre.
 						$input_cedula.
 						$input_login.
@@ -441,9 +441,9 @@ class SmuqUsuariosController extends AppController
 		}
 		return '<input id="encontro" type="hidden" value="false" />';
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function crear()
 	{
 		$this->autoLayout = false;
@@ -452,8 +452,9 @@ class SmuqUsuariosController extends AppController
 		{
 			$this->data['SmuqUsuario']['clave'] = Security::hash($this->data['SmuqUsuario']['clave'], 'sha1', true);
 			$this->data['SmuqUsuario']['login'] = strtolower($this->data['SmuqUsuario']['login']);
+			$this->data['SmuqUsuario']['activo'] = 1;
 			$this->Usuario->create();
-			
+
 			if ( $this->SmuqUsuario->save($this->data) )
 			{
 				$this->Session->write('Controlador.resultado_guardar', 'exito');
@@ -465,32 +466,33 @@ class SmuqUsuariosController extends AppController
 			$this->redirect($this->referer());
 		}
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function modificar()
 	{
 		$this->autoLayout = false;
 		$this->autoRender = false;
-		
+
 		if ( !empty($this->data) )
 		{
 			if ( isset($this->data['SmuqUsuario']['clave']) )
 			{
 				$this->data['SmuqUsuario']['clave'] = Security::hash($this->data['SmuqUsuario']['clave'], 'sha1', true);
 			}
-			
+
 			if ( isset($this->data['SmuqUsuario']['login']) )
 			{
 				$this->data['SmuqUsuario']['login'] = strtolower($this->data['SmuqUsuario']['login']);
 			}
-			
+
 			$smuq_usuario = $this->SmuqUsuario->read(null, $this->data['SmuqUsuario']['cedula']);
 			if ( empty($smuq_usuario) )
 			{
 				$this->data['SmuqUsuario']['id_grupo'] = 3;
+				$this->data['SmuqUsuario']['activo'] = 1;
 			}
-			
+
 			if ( $this->SmuqUsuario->save($this->data) )
 			{
 				$this->Session->write('Controlador.resultado_guardar', 'exito');
@@ -502,18 +504,18 @@ class SmuqUsuariosController extends AppController
 			$this->redirect($this->referer());
 		}
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function eliminar()
 	{
 		$this->autoLayout = false;
 		$this->autoRender = false;
 		$this->loadModel('Equipo');
 		$this->loadModel('Solicitud');
-		
+
 		$this->Session->write('Controlador.resultado_guardar', 'error');
-		
+
 		if ( !empty($this->data) )
 		{
 			// Primero se verifica si hay solicitudes y equipos dependientes.
@@ -532,9 +534,9 @@ class SmuqUsuariosController extends AppController
 		}
 		$this->redirect($this->referer());
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function __crear_filas($usuarios_info)
 	{
 		$datos_json['resultado'] = false;
@@ -556,9 +558,9 @@ class SmuqUsuariosController extends AppController
 		}
 		return $datos_json;
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function _crear_filas_xls($usuarios_info)
 	{
 		$datos_json['resultado'] = false;
@@ -596,9 +598,9 @@ class SmuqUsuariosController extends AppController
 		}
 		return $datos_json;
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function _crear_filas_adm($usuarios_info)
 	{
 		$datos_json['resultado'] = false;
@@ -620,9 +622,9 @@ class SmuqUsuariosController extends AppController
 		}
 		return $datos_json;
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function _crear_filas_adm_xls($usuarios_info)
 	{
 		$datos_json['resultado'] = false;
@@ -641,7 +643,7 @@ class SmuqUsuariosController extends AppController
 				{
 					$cargo = $usuario['SmuqUsuario']['cargo'];
 				}
-				
+
 				$filas_tabla .= '<tr><td>'.$usuario['SmuqUsuario']['nombre'].'</td>';
 				$filas_tabla .= '<td>'.$usuario['SmuqUsuario']['cedula'].'</td>';
 				$filas_tabla .= '<td>'.$usuario['SmuqUsuario']['login'].'</td>';
@@ -656,9 +658,9 @@ class SmuqUsuariosController extends AppController
 		}
 		return $datos_json;
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function con_cedula($cedula)
 	{
 		$this->autoLayout = false;
@@ -666,10 +668,10 @@ class SmuqUsuariosController extends AppController
 		$this->loadModel('Dependencia');
 		$this->SmuqUsuario->recursive = 2;
 		$filas_tabla = 'false';
-		
+
 		$usuario = $this->Usuario->find('first', array('conditions' => array('Usuario.Usu_cedula' => $cedula)));
 		$smuq_usuario = $this->SmuqUsuario->find('first', array('conditions' => array('SmuqUsuario.cedula' => $cedula)));
-		
+
 		if ( !empty($usuario) )	// Si se encuentra en CENCOS.
 		{
 			if ( empty($smuq_usuario) )
@@ -693,13 +695,13 @@ class SmuqUsuariosController extends AppController
 					$smuq_usuario['SmuqUsuario']['telefono'] = 'No disponible';
 				}
 			}
-			
+
 			$dep_info = $this->Dependencia->find('first', array('conditions'=>array('Dependencia.Cencos_id'=>$usuario['Usuario']['Usu_Cencos_id'])));
 			if ( empty($dep_info) )
 			{
 				$dep_info['Edificio']['name'] = 'No tiene un edificio asignado.';
 			}
-			
+
 			$filas_tabla = '<table width="100%" cellspacing="0" cellpadding="0" border="0"><tbody>
 			<tr align="left">
 				<td class="subtitulo" width="50">Nombre:</td>
@@ -761,7 +763,7 @@ class SmuqUsuariosController extends AppController
 			{
 				$dep_info['Dependencia']['name'] = 'SMUQ-Lab (Mantenimiento)';
 			}
-			
+
 			$filas_tabla = '<table width="100%" cellspacing="0" cellpadding="0" border="0"><tbody>
 			<tr align="left">
 				<td class="subtitulo" width="50">Nombre:</td>
@@ -813,9 +815,9 @@ class SmuqUsuariosController extends AppController
 		}
 		return $filas_tabla;
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function ver($cedula)
 	{
 		$this->loadModel('Dependencia');
@@ -838,7 +840,7 @@ class SmuqUsuariosController extends AppController
 			{
 				$usuario_info['Usuario']['email'] = $smuq_usuario['SmuqUsuario']['email'];
 			}
-			
+
 			if ( $smuq_usuario['SmuqUsuario']['cargo'] == '' )
 			{
 				$usuario_info['Usuario']['cargo'] = 'No disponible';
@@ -848,7 +850,7 @@ class SmuqUsuariosController extends AppController
 				$usuario_info['Usuario']['cargo'] = $smuq_usuario['SmuqUsuario']['cargo'];
 			}
 		}
-		
+
 		if ( !empty($usuario) )	// Si se encuentra en CENCOS.
 		{
 			$dep_info = $this->Dependencia->find('first', array('conditions'=>array('Dependencia.Cencos_id'=>$usuario['Usuario']['Usu_Cencos_id'])));
@@ -856,7 +858,7 @@ class SmuqUsuariosController extends AppController
 			{
 				$dep_info['Edificio']['name'] = 'No tiene un edificio asignado.';
 			}
-			
+
 			// Trasladamos valores al arreglo $usuario_info
 			$usuario_info['Usuario']['nombre'] = mb_convert_case($usuario['Usuario']['Usu_nombre'], MB_CASE_TITLE, "UTF-8");
 			$usuario_info['Usuario']['cedula'] = $usuario['Usuario']['Usu_cedula'];
@@ -877,7 +879,7 @@ class SmuqUsuariosController extends AppController
 			{
 				$dep_info['Dependencia']['name'] = 'SMUQ-Lab (Mantenimiento)';
 			}
-			
+
 			// Trasladamos valores al arreglo $usuario_info
 			$usuario_info['Usuario']['nombre'] = $smuq_usuario['SmuqUsuario']['nombre'];
 			$usuario_info['Usuario']['cedula'] = $smuq_usuario['SmuqUsuario']['cedula'];
@@ -886,11 +888,11 @@ class SmuqUsuariosController extends AppController
 			$usuario_info['Edificio']['name'] = $dep_info['Edificio']['name'];
 			$usuario_info['Dependencia']['name'] = $dep_info['Dependencia']['name'];
 		}
-		
+
 		if ( !empty($usuario) || !empty($smuq_usuario) )
 		{
 			$this->set('usuario', $usuario_info);
-			
+
 			$id_grupo = $this->Session->read('Usuario.id_grupo');
 			if ( $id_grupo == '1' )
 			{
@@ -913,7 +915,7 @@ class SmuqUsuariosController extends AppController
 	}
 
 	//--------------------------------------------------------------------------
-	
+
 	function _buscar_smuq_usuarios($frase_busqueda, $criterio_campo, $criterio_tipo_usuario)
 	{
 		$condiciones = array();
@@ -939,9 +941,9 @@ class SmuqUsuariosController extends AppController
 			'order' => array('SmuqUsuario.id_grupo')
 		));
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function _buscar_usuarios($frase_busqueda, $criterio_campo, $criterio_dependencia)
 	{
 		$condiciones = array();
@@ -970,14 +972,14 @@ class SmuqUsuariosController extends AppController
 			'order' => array('Usuario.Usu_nombre')
 		));
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function buscar($frase_busqueda, $criterio_campo, $criterio_dependencia, $criterio_tipo_usuario)
 	{
 		$this->autoLayout = false;
 		$this->autoRender = false;
-		
+
 		$condiciones = array();
 		$pre_con_like = array();
 		$datos_json = array
@@ -986,7 +988,7 @@ class SmuqUsuariosController extends AppController
 			'count' => 0,
 			'resultado' => false
 		);
-		
+
 		if ( $criterio_tipo_usuario == '1' || $criterio_tipo_usuario == '2' )
 		{
 			$smuq_usuarios = $this->_buscar_smuq_usuarios($frase_busqueda, $criterio_campo, $criterio_tipo_usuario);
@@ -1001,10 +1003,10 @@ class SmuqUsuariosController extends AppController
 		{
 			$usuarios = $this->_buscar_usuarios($frase_busqueda, $criterio_campo, $criterio_dependencia);
 			$smuq_usuarios = $this->_buscar_smuq_usuarios($frase_busqueda, $criterio_campo, array(1,2));
-			
+
 			$json_usrs = $this->__crear_filas($usuarios);
 			$json_smuqusrs = $this->_crear_filas_adm($smuq_usuarios);
-			
+
 			if ( $json_usrs['resultado'] == true )
 			{
 				$datos_json['filas_tabla'] .= $json_usrs['filas_tabla'];
@@ -1020,14 +1022,14 @@ class SmuqUsuariosController extends AppController
 		}
 		return json_encode($datos_json);
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function buscar_xls($frase_busqueda, $criterio_campo, $criterio_dependencia, $criterio_tipo_usuario)
 	{
 		$this->autoLayout = false;
 		$this->autoRender = false;
-		
+
 		$condiciones = array();
 		$pre_con_like = array();
 		$datos_json = array
@@ -1036,7 +1038,7 @@ class SmuqUsuariosController extends AppController
 			'count' => 0,
 			'resultado' => false
 		);
-		
+
 		if ( $criterio_tipo_usuario == '1' || $criterio_tipo_usuario == '2' )
 		{
 			$smuq_usuarios = $this->_buscar_smuq_usuarios($frase_busqueda, $criterio_campo, $criterio_tipo_usuario);
@@ -1051,10 +1053,10 @@ class SmuqUsuariosController extends AppController
 		{
 			$usuarios = $this->_buscar_usuarios($frase_busqueda, $criterio_campo, $criterio_dependencia);
 			$smuq_usuarios = $this->_buscar_smuq_usuarios($frase_busqueda, $criterio_campo, array(1,2));
-			
+
 			$json_usrs = $this->_crear_filas_xls($usuarios);
 			$json_smuqusrs = $this->_crear_filas_adm_xls($smuq_usuarios);
-			
+
 			if ( $json_usrs['resultado'] == true )
 			{
 				$datos_json['filas_tabla'] .= $json_usrs['filas_tabla'];
@@ -1070,7 +1072,7 @@ class SmuqUsuariosController extends AppController
 		}
 		return json_encode($datos_json);
 	}
-	
+
 	//--------------------------------------------------------------------------
 }
 ?>

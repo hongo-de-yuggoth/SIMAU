@@ -57,9 +57,9 @@ class AdmPrincipalController extends AppController
 		11=>'Noviembre',
 		12=>'Diciembre'
 	);
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function beforeRender()
 	{
 		$opciones_menu_2 = '<li><a href="/adm_principal/modificar_equipo">Modificar un Equipo</a></li>
@@ -67,9 +67,9 @@ class AdmPrincipalController extends AppController
 		$this->set('opciones_menu', $this->__crear_menu());
 		$this->set('opciones_menu_2', $opciones_menu_2);
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function __crear_menu()
 	{
 		$opciones_menu = '';
@@ -77,34 +77,34 @@ class AdmPrincipalController extends AppController
 		{
 			$opciones_menu = $opciones_menu.'<li id="'.$opcion['id'].'" class="celdano" name="hovermenu"><a href="'.$opcion['link'].'">'.$opcion['titulo'].'</a></li>';
 		}
-		
+
 		return $opciones_menu;
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function index()
 	{
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function get_opciones_menu()
 	{
 		$this->autoLayout = false;
 		$this->autoRender = false;
 		return $this->__crear_menu();
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function crear_solicitud_mantenimiento()	// ;)
 	{
 		$this->set('edificios_info', $this->requestAction(array('controller'=>'edificios',
 																				  'action'=>'cargar_select_edificios_con_dependencias_con_usuarios')).'<option value="0">Dependencias sin edificio asignado</option>');
 		$this->set('fecha_hoy', $this->Tiempo->fecha_espaniol(date('Y-n-j-N')));
 		$this->set('opcion_seleccionada', 'crear_solicitud_mantenimiento');
-		
+
 		// Revisamos variables de Session.
 		if ( $this->Session->check('Controlador.resultado_guardar') )
 		{
@@ -133,16 +133,16 @@ class AdmPrincipalController extends AppController
 			$this->set('clase_notificacion', '');
 			$this->set('mensaje_notificacion', '');
 		}
-		
+
 		$this->Session->write('Controlador.resultado_guardar', '');
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function modificar_equipo()	// ;)
 	{
 		$this->set('opcion_seleccionada', 'crear_equipo');
-		
+
 		// Revisamos variables de Session.
 		if ( $this->Session->check('Controlador.resultado_guardar') )
 		{
@@ -177,12 +177,12 @@ class AdmPrincipalController extends AppController
 			$this->set('clase_notificacion', '');
 			$this->set('mensaje_notificacion', '');
 		}
-		
+
 		$this->Session->write('Controlador.resultado_guardar', '');
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function archivos_equipo()	// ;)
 	{
 		$this->set('opcion_seleccionada', 'crear_equipo');
@@ -214,16 +214,16 @@ class AdmPrincipalController extends AppController
 			$this->set('clase_notificacion', '');
 			$this->set('mensaje_notificacion', '');
 		}
-		
+
 		$this->Session->write('Controlador.resultado_guardar', '');
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function ingresar_usuario()	// ;)
 	{
 		$this->set('opcion_seleccionada', 'ingresar_usuario');
-		
+
 		// Revisamos variables de Session.
 		if ( $this->Session->check('Controlador.resultado_guardar') )
 		{
@@ -254,13 +254,13 @@ class AdmPrincipalController extends AppController
 		}
 		$this->Session->del('Controlador.resultado_guardar');
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function modificar_usuario()	// ;)
 	{
 		$this->set('opcion_seleccionada', 'ingresar_usuario');
-		
+
 		// Revisamos variables de Session.
 		if ( $this->Session->check('Controlador.resultado_guardar') )
 		{
@@ -289,12 +289,12 @@ class AdmPrincipalController extends AppController
 			$this->set('clase_notificacion', '');
 			$this->set('mensaje_notificacion', '');
 		}
-		
+
 		$this->Session->write('Controlador.resultado_guardar', '');
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function eliminar_usuario()	// ;)
 	{
 		$this->set('opcion_seleccionada', 'ingresar_usuario');
@@ -326,33 +326,33 @@ class AdmPrincipalController extends AppController
 			$this->set('clase_notificacion', '');
 			$this->set('mensaje_notificacion', '');
 		}
-		
+
 		$this->Session->write('Controlador.resultado_guardar', '');
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function adm_edificios()	// ;)
 	{
 		$this->set('opcion_seleccionada', 'adm_edificios');
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function adm_dependencias()	// ;)
 	{
 		$this->set('opcion_seleccionada', 'adm_edificios');
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function consultar_solicitudes()	// ;)
 	{
 		$this->loadModel('Solicitud');
 		$opciones_años = '';
 		$opciones_meses = '';
 		$opciones_servicios = '';
-		
+
 		// primero obtenemos los años existentes de las solucionadas.
 		$años = $this->Solicitud->query("SELECT YEAR(created) AS year FROM solicitudes GROUP BY YEAR(created)");
 		if ( !empty($años) )
@@ -363,21 +363,21 @@ class AdmPrincipalController extends AppController
 			}
 			$opciones_años = '<option value="0">Todos los años</option>'.$opciones_años;
 		}
-		
+
 		foreach ( $this->meses as $num_mes => $mes )
 		{
 			$opciones_meses .= '<option value="'.$num_mes.'">'.$mes.'</option>';
 		}
 		$opciones_meses = '<option value="0">Todos los meses</option>'.$opciones_meses;
-		
-		$this->set('opciones_años', $opciones_años);
+
+		$this->set('opciones_anios', $opciones_años);
 		$this->set('opciones_meses', $opciones_meses);
 		$this->set('opciones_servicios', $this->requestAction('/solicitudes/cargar_tipos_de_servicio'));
 		$this->set('opcion_seleccionada', 'consultar_solicitudes');
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function consultar_equipos()	// ;)
 	{
 		$this->loadModel('CentroCosto');
@@ -386,16 +386,16 @@ class AdmPrincipalController extends AppController
 		$this->set('opciones_dependencias', $opciones_cencos);
 		$this->set('opcion_seleccionada', 'consultar_equipos');
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function consultar_usuarios()	// ;)
 	{
 		$this->loadModel('Grupo');
 		$this->loadModel('CentroCosto');
 		$opciones_cencos = '<option value="0">Todas las dependencias</option>'.
 								$this->requestAction('/dependencias/cargar_select_dependencias_usuarios');
-		
+
 		$opciones_tipo_usuario = '<option value="0">Todos los tipos de usuario</option>';
 		$grupos = $this->Grupo->find('list');
 		foreach ( $grupos as $id_grupo => $nombre_grupo )
@@ -406,14 +406,14 @@ class AdmPrincipalController extends AppController
 		$this->set('opciones_dependencias', $opciones_cencos);
 		$this->set('opcion_seleccionada', 'consultar_usuarios');
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function consultar_reportes()	// ;)
 	{
 		$this->loadModel('SmuqUsuario');
 		$this->loadModel('Solicitud');
-		
+
 		$opciones_cencos = $this->requestAction('/dependencias/cargar_select_dependencias_usuarios');
 		//------------------------------------------------------------------------
 		$tecnicos = $this->SmuqUsuario->find('all', array
@@ -451,16 +451,16 @@ class AdmPrincipalController extends AppController
 			$listado_años = 'No hay solicitudes solucionadas';
 			$html = '<option value="">No hay solicitudes solucionadas</option>';
 		}
-		$this->set('listado_años', $listado_años);
-		$this->set('select_año_inicial', $html);
+		$this->set('listado_anios', $listado_años);
+		$this->set('select_anio_inicial', $html);
 		//------------------------------------------------------------------------
-		
+
 		$this->set('opcion_seleccionada', 'consultar_reportes');
 		$this->set('opciones_dependencias', $opciones_cencos);
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function actualizar_datos_usuario()	// ;)
 	{
 		$this->set('opcion_seleccionada', 'actualizar_datos_usuario');
@@ -492,13 +492,13 @@ class AdmPrincipalController extends AppController
 			$this->set('clase_notificacion', '');
 			$this->set('mensaje_notificacion', '');
 		}
-		
+
 		$this->Session->write('Controlador.resultado_guardar', '');
-		
+
 		// Se obtiene la info del usuario...
 		$this->loadModel('SmuqUsuario');
 		$this->SmuqUsuario->recursive = 0;
-		
+
 		$smuq_usuario = $this->SmuqUsuario->find('first', array('conditions' => array('SmuqUsuario.cedula' => $this->Session->read('Usuario.cedula'))));
 		if ( !empty($smuq_usuario) )
 		{

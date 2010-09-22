@@ -26,16 +26,16 @@ class UsrDependenciaController extends AppController
 				'link' => '/logout/',
 				'id' => 'ayuda')
 	);
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function beforeRender()
 	{
 		$this->disableCache();
 		$this->set('opciones_menu', $this->__crear_menu());
-		
+
 		// Se averigua si tiene notificaciones sin leer
-		$notificaciones_count = $this->Notificacion->find('count', array('conditions'=>array('Notificacion.id_usuario'=>$this->Session->read('Usuario.id'),
+		/*$notificaciones_count = $this->Notificacion->find('count', array('conditions'=>array('Notificacion.cedula_usuario'=>$this->Session->read('Usuario.cedula'),
 																														'Notificacion.leido'=>'no')));
 		if ( $notificaciones_count == 0 )
 		{
@@ -46,11 +46,11 @@ class UsrDependenciaController extends AppController
 		{
 			$this->set('msj_notificaciones', 'Tienes '.$notificaciones_count.' notificacion(es) sin leer.');
 			$this->set('display_notificaciones', 'block');
-		}
+		}*/
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function __crear_menu()
 	{
 		$opciones_menu = '';
@@ -58,27 +58,27 @@ class UsrDependenciaController extends AppController
 		{
 			$opciones_menu = $opciones_menu.'<li id="'.$opcion['id'].'"><a href="'.$opcion['link'].'">'.$opcion['titulo'].'</a></li>';
 		}
-		
+
 		return $opciones_menu;
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function get_opciones_menu()
 	{
 		$this->autoLayout = false;
 		$this->autoRender = false;
 		return $this->__crear_menu();
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function index()
 	{
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function ver_notificaciones()
 	{
 		$this->loadModel('Solicitud');
@@ -96,7 +96,7 @@ class UsrDependenciaController extends AppController
 									<tr align="left"><td class="subtitulo" colspan="3"><a href="/solicitudes/ver/'.$notificacion['Notificacion']['id_solicitud'].'" title="Ver información de la solicitud" >Solicitud #'.$notificacion['Notificacion']['id_solicitud'].'</a></td></tr>
 									<tr align="left"><td class="subtitulo" width="120">Servicio:</td><td width="310">'.$this->Solicitud->tipo_servicio[$notificacion['Solicitud']['tipo_servicio']].'</td>
 									<td rowspan="4" align="center" valign="center">
-									
+
 										<div id="div_marcar_'.$i.'" class="link_marcar" style="display:block;">
 											<input type="button" id="boton_'.$i.'" value="Marcar como leida" />
 										</div>
@@ -105,7 +105,7 @@ class UsrDependenciaController extends AppController
 									<tr align="left"><td class="subtitulo">Fecha de solicitud:</td><td>'.$notificacion['Solicitud']['created'].'</td></tr>
 									<tr align="left"><td class="subtitulo">Fecha de solución:</td><td>'.$notificacion['Solicitud']['solucionada'].'</td></tr>
 									</tbody></table></div></td></tr>';
-									
+
 				$filas_js .= 'jQuery("#boton_'.$i.'").click(function()
 				{
 					jQuery.ajax(
@@ -125,7 +125,7 @@ class UsrDependenciaController extends AppController
 						}
 					});
 				});';
-									
+
 				$i++;
 			}
 			$filas_js = 'jQuery(document).ready(function(){'.$filas_js.'});';
@@ -137,19 +137,19 @@ class UsrDependenciaController extends AppController
 		$this->set('filas', $filas_tabla);
 		$this->set('filas_js', $filas_js);
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function crear_solicitud_mantenimiento()
 	{
 		$this->loadModel('Usuario');
 		$this->loadModel('SmuqUsuario');
 		$this->loadModel('Dependencia');
 		$this->loadModel('CentroCosto');
-		
+
 		$this->SmuqUsuario->recursive = 0;
 		$cedula = $this->Session->read('Usuario.cedula');
-		
+
 		$usuario = $this->Usuario->find('first', array
 		(
 			'fields' => array('Usuario.Usu_nombre', 'Usuario.Usu_Cencos_id'),
@@ -165,7 +165,7 @@ class UsrDependenciaController extends AppController
 			),
 			'conditions' => array('SmuqUsuario.cedula' => $cedula)
 		));
-		
+
 		if ( !empty($usuario) )	// Si se encuentra en CENCOS.
 		{
 			$info_usuario = array();
@@ -185,7 +185,7 @@ class UsrDependenciaController extends AppController
 				{
 					$info_usuario['email'] = $smuq_usuario['SmuqUsuario']['email'];
 				}
-				
+
 				if ( $smuq_usuario['SmuqUsuario']['cargo'] == '' )
 				{
 					$info_usuario['cargo'] = 'No disponible';
@@ -194,7 +194,7 @@ class UsrDependenciaController extends AppController
 				{
 					$info_usuario['cargo'] = $smuq_usuario['SmuqUsuario']['cargo'];
 				}
-				
+
 				if ( $smuq_usuario['SmuqUsuario']['telefono'] == '' )
 				{
 					$info_usuario['telefono'] = 'No disponible';
@@ -224,10 +224,10 @@ class UsrDependenciaController extends AppController
 			$info_usuario['Cencos_id'] = $usuario['Usuario']['Usu_Cencos_id'];
 			$this->set('usuario', $info_usuario);
 		}
-	
+
 		$this->set('fecha_hoy', $this->Tiempo->fecha_espaniol(date('Y-n-j-N')));
 		$this->set('opcion_seleccionada', 'crear_solicitud_mantenimiento');
-		
+
 		// Revisamos variables de Session.
 		if ( $this->Session->check('Controlador.resultado_guardar') )
 		{
@@ -236,7 +236,7 @@ class UsrDependenciaController extends AppController
 				$this->set('display_notificacion', 'block');
 				$this->set('clase_notificacion', 'clean-ok');
 				$this->set('mensaje_notificacion', 'La solicitud de mantenimiento fue creada con éxito.');
-				
+
 				if ( $this->Session->check('Controlador.id_solicitud_recien_creada') )
 				{
 					$this->set('id_solicitud_nueva', $this->Session->read('Controlador.id_solicitud_recien_creada'));
@@ -261,19 +261,19 @@ class UsrDependenciaController extends AppController
 			$this->set('clase_notificacion', '');
 			$this->set('mensaje_notificacion', '');
 		}
-		
+
 		$this->Session->write('Controlador.resultado_guardar', '');
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function consultar_solicitudes()
 	{
 		$this->loadModel('Solicitud');
 		$opciones_años = '';
 		$opciones_meses = '';
 		$opciones_servicios = '';
-		
+
 		// primero obtenemos los años existentes de las solucionadas.
 		$años = $this->Solicitud->query("SELECT YEAR(created) AS year FROM solicitudes GROUP BY YEAR(created)");
 		if ( !empty($años) )
@@ -284,21 +284,21 @@ class UsrDependenciaController extends AppController
 			}
 			$opciones_años = '<option value="0">Todos los años</option>'.$opciones_años;
 		}
-		
+
 		foreach ( $this->meses as $num_mes => $mes )
 		{
 			$opciones_meses .= '<option value="'.$num_mes.'">'.$mes.'</option>';
 		}
 		$opciones_meses = '<option value="0">Todos los meses</option>'.$opciones_meses;
-		
+
 		$this->set('opciones_años', $opciones_años);
 		$this->set('opciones_meses', $opciones_meses);
 		$this->set('opciones_servicios', $this->requestAction('/solicitudes/cargar_tipos_de_servicio'));
 		$this->set('opcion_seleccionada', 'consultar_solicitudes');
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function consultar_equipos()
 	{
 		$this->loadModel('CentroCosto');
@@ -307,9 +307,9 @@ class UsrDependenciaController extends AppController
 		$this->set('opciones_dependencias', $opciones_cencos);
 		$this->set('opcion_seleccionada', 'consultar_equipos');
 	}
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	function actualizar_datos_usuario()
 	{
 		$this->set('opcion_seleccionada', 'actualizar_datos_usuario');
@@ -341,9 +341,9 @@ class UsrDependenciaController extends AppController
 			$this->set('clase_notificacion', '');
 			$this->set('mensaje_notificacion', '');
 		}
-		
+
 		$this->Session->write('Controlador.resultado_guardar', '');
-		
+
 		// Se obtiene la info del usuario...
 		$this->loadModel('Usuario');
 		$this->loadModel('SmuqUsuario');
@@ -369,7 +369,7 @@ class UsrDependenciaController extends AppController
 			),
 			'conditions' => array('SmuqUsuario.cedula' => $cedula)
 		));
-	
+
 		$usuario_info['email'] = '';
 		$usuario_info['cargo'] = '';
 		$usuario_info['telefono'] = '';
@@ -385,7 +385,7 @@ class UsrDependenciaController extends AppController
 		{
 			$usuario_info['telefono'] = $smuq_usuario['SmuqUsuario']['telefono'];
 		}
-	
+
 		// Trasladamos valores al arreglo $usuario_info
 		$tipos_usuario = Configure::read('TiposUsuario');
 		$usuario_info['tipo_usuario'] = $tipos_usuario[3];

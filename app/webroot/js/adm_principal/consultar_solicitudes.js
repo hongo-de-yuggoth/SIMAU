@@ -152,19 +152,8 @@ jQuery(document).ready(function()
 				buscar_solicitud(frase_busqueda);
 			}
 		}
-		else if ( criterio_campo != 'todos' && frase_busqueda == '' )
-		{
-			// Mostrar error...
-			$('#error_numero_solicitud').html('Debes escribir una palabra de búsqueda.').show();
-			$('#tabla_resultados tbody').html('');
-			$('#resultados').hide();
-			$('#error_consulta').hide();
-			$('#total_registros').html('').hide();
-			$('#archivo_xls').hide();
-		}
 		else
 		{
-			$('#error_numero_solicitud').html('').hide();
 			var fecha_1;
 			var fecha_2;
 			var criterio_fecha = jQuery('#criterio_fecha input[checked=true]:radio').val();
