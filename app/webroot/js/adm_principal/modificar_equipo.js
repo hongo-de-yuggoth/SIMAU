@@ -11,22 +11,22 @@ jQuery(document).ready(function()
 {
 	// Configuración inicial
 	jQuery('div.cuerpo_menu ul #'+jQuery('#opcion_seleccionada').val()).addClass('selected');
-	
+
 	if ( jQuery('#cuadro_notificaciones').not(':hidden') )
 	{
 		jQuery('#cuadro_notificaciones').hide().slideDown('slow');
 		jQuery('#cuadro_notificaciones').fadeTo(10000, 0.9).fadeOut(7000);
 	}
-	
+
 	//--------------------------------------------------------------------------
 	// Programamos los diferentes EVENTOS.
 	jQuery('#boton_cal_2').click(function()
 	{
 		displayCalendar(jQuery('#fecha_recibido_satisfaccion').get(0),'yyyy-mm-dd',jQuery('#boton_cal_2').get(0));
 	});
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	// Configuramos el boton para buscar equipos.
 	jQuery('#boton_buscar_equipo').click(function()
 	{
@@ -34,7 +34,7 @@ jQuery(document).ready(function()
 		if ( jQuery('#placa_inventario_buscar').val() == '' )
 		{
 			// Activamos mensaje de error.
-			jQuery('#error_placa_buscar').html('Escribe una placa de inventario por favor.').css('display', 'block');
+			jQuery('#error_placa_buscar').html('Escribe una placa de inventario por favor.').show();
 		}
 		else
 		{
@@ -47,7 +47,7 @@ jQuery(document).ready(function()
 					if ( jQuery('#encontro').val() == 'true' )
 					{
 						limpiar_errores();
-						
+
 						// Leemos datos de inputs hidden y ponemos info en las casillas.
 						jQuery('#nombre').html(jQuery('#name_equipo').val());
 						jQuery('#marca').html(jQuery('#marca_equipo').val());
@@ -61,19 +61,21 @@ jQuery(document).ready(function()
 						jQuery('#valor_compra').html('$'+jQuery('#valor_compra_equipo').val());
 						jQuery('#fecha_compra').html(jQuery('#fecha_compra_equipo').val());
 						jQuery('#fecha_recibido_satisfaccion').val(jQuery('#fecha_recibido_equipo').val());
-						
+
 						if ( jQuery('#nombre_foto_equipo').val() != '' )
 						{
 							// Cargamos foto_THUMB en IMG
-							jQuery('#foto_equipo img').attr('src', jQuery('#nombre_foto_equipo').val());
+							jQuery('#link_foto').attr('href', '/equipos/fotos/'+jQuery('#nombre_foto_eliminar').val());
+							jQuery('#foto_equipo a img').attr('src', jQuery('#nombre_foto_equipo').val());
 							jQuery('#div_foto').show();
 						}
 						else
 						{
-							jQuery('#foto_equipo img').attr('src', '');
+							jQuery('#link_foto').attr('href', '');
+							jQuery('#foto_equipo a img').attr('src', '');
 							jQuery('#div_foto').hide();
 						}
-						
+
 						jQuery('#error_placa_buscar').html('Placa de inventario encontrada.').show();
 						jQuery('#info_equipo').slideDown('slow');
 					}
@@ -81,7 +83,7 @@ jQuery(document).ready(function()
 					{
 						// Escondemos DIV de info_equipo.
 						jQuery('#info_equipo').slideUp('slow');
-						
+
 						jQuery('#nombre').html('');
 						jQuery('#marca').html('');
 						jQuery('#modelo').html('');
@@ -91,9 +93,9 @@ jQuery(document).ready(function()
 						jQuery('#valor_compra').html('');
 						jQuery('#fecha_compra').html('');
 						jQuery('#fecha_recibido').val('');
-						
+
 						limpiar_errores();
-						
+
 						jQuery('#error_placa_buscar').html('No se encontró un equipo con esa placa de inventario.').css('display', 'block');
 						jQuery('#equipo').attr('action', '#');
 					}
@@ -101,9 +103,9 @@ jQuery(document).ready(function()
 			);
 		}
 	});
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	// Configuramos el boton para borrar foto.
 	jQuery('#boton_borrar_foto').click(function()
 	{
@@ -126,21 +128,21 @@ jQuery(document).ready(function()
 							jQuery('#nombre_foto_equipo').attr('src', '');
 						});
 					});
-					
+
 				}
 			}
 		});
 	});
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	jQuery('#equipo').submit(function()
 	{
 		jQuery('#equipo').attr('action', '/equipos/modificar');
 		return true;
 	});
 	//--------------------------------------------------------------------------
-	
+
 	jQuery('#placa_inventario_buscar').keypress(function(kp)
 	{
 		if ( kp.which == 13 )

@@ -42,7 +42,7 @@ class EquiposController extends AppController
 	function exportar_pdf($placa_inventario)
 	{
 		// Sobrescribimos para que no aparezcan los resultados de debuggin
-		// ya que sino daria un error al generar el pdf.
+		// ya que sino daría un error al generar el pdf.
 		Configure::write('debug',0);
 
 		// Se obtienen los datos del equipo.
@@ -554,7 +554,7 @@ class EquiposController extends AppController
 			$nombre_foto = 'No disponible.';
 			if ( $equipo['Equipo']['nombre_foto'] != '' )
 			{
-				$nombre_foto = '<img src="/app/webroot/equipos/fotos/'.$equipo['Equipo']['nombre_foto'].'" alt="" />';
+				$nombre_foto = '<img src="/app/webroot/equipos/fotos/'.$equipo['Equipo']['nombre_foto'].'" alt="" width="200" />';
 			}
 			if ( !isset($equipo['Equipo']['fecha_recibido_satisfaccion']) )
 			{
@@ -729,12 +729,14 @@ class EquiposController extends AppController
 
 			if ( $equipo['Equipo']['nombre_foto'] != '' )
 			{
-				$nombre_foto = '<img src="/equipos/fotos/'.$equipo['Equipo']['nombre_foto'].'" alt="" />';
-				$equipo['Equipo']['nombre_foto'] = $nombre_foto;
+				$link_foto =
+				'<a href="/equipos/fotos/'.$equipo['Equipo']['nombre_foto'].'" target="_blank" title="Haga click para ver la imagen">
+					<img src="/equipos/thumbs/thumb_'.$equipo['Equipo']['nombre_foto'].'"  border="0" />
+				</a>';
 			}
 			else
 			{
-				$equipo['Equipo']['nombre_foto'] = 'No disponible.';
+				$link_foto  = 'No disponible.';
 			}
 			if ( !empty($producto['Producto']['prousu_modelo']) )
 			{
@@ -845,6 +847,7 @@ class EquiposController extends AppController
 			$this->set('lista_archivos', $lista_archivos);
 			$this->set('producto', $producto);
 			$this->set('equipo', $equipo);
+			$this->set('link_foto', $link_foto);
 			$this->set('edificio', $edificio);
 			$this->set('centro_costo', $centro_costo);
 			$this->set('smuq_usuario', $smuq_usuario);
