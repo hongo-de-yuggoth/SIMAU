@@ -38,20 +38,20 @@ echo $javascript->link('adm_principal/archivos_equipo');
             <input id="placa_inventario_equipo" type="hidden" value='' />
 			</div>
 			<input type="hidden" value="<?php echo $opcion_seleccionada; ?>" id="opcion_seleccionada"/>
-         
+
 			<table width="100%" cellspacing="0" cellpadding="0" border="0"><tbody>
 				<tr align="left">
 					<td class='subtitulo' width='120'>Placa de Inventario:</td>
 					<td width="70"><input id="placa_inventario_buscar" maxlength="10" size='9' /></td>
 					<td style="padding-left: 5px;"><input id='boton_buscar_equipo' type="button" value="Buscar equipo"></td>
 				</tr>
-				
+
 				<tr align="left">
 					<td width='120'></td>
 					<td width="300" colspan="2" class="textoError"><div id="error_placa_buscar" style="display:none;"></td>
 				</tr>
 			</tbody></table>
-			
+
 			<table width="100%" cellspacing="0" cellpadding="0" border="0"><tbody>
 				<tr align='left'>
 					<td width="100%">
@@ -61,6 +61,7 @@ echo $javascript->link('adm_principal/archivos_equipo');
                         <tr><td height="1" class="linea" /></tr>
                         <tr><td height="30" /></tr>
                         <tr><td style='font-size:14px; font-weight:bold; text-align:center;'>Documentos del equipo <a id='link_ver_equipo' href='' target="_blank" alt='Ver la información del equipo'></a></td></tr>
+								<tr><td id="titulo_nombre_equipo" style='font-size:14px; font-weight:bold; text-align:center;'></td></tr>
                         <tr><td height="34" /></tr>
                         <tr>
                            <td>
@@ -295,7 +296,7 @@ echo $javascript->link('adm_principal/archivos_equipo');
                               </div>
                            </td>
                         </tr>
-                        
+
                      </tbody></table>
                   </div>
 					</td>

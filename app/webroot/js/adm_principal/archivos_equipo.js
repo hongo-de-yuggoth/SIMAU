@@ -5,18 +5,18 @@
 jQuery(document).ready(function()
 {
 	jQuery('div.cuerpo_menu ul #'+jQuery('#opcion_seleccionada').val()).addClass('selected');
-	
+
 	$("#tabs ul").idTabs();
-	
+
 	if ( jQuery('#cuadro_notificaciones').not(':hidden') )
 	{
 		$('#cuadro_notificaciones').hide().slideDown('slow');
 		$('#cuadro_notificaciones').fadeTo(10000, 0.9).fadeOut(7000);
 	}
-	
+
 	//--------------------------------------------------------------------------
 	// Programamos los diferentes EVENTOS.
-	
+
 	jQuery('#select_certificados').dblclick(function()
 	{
 		var certificado_seleccionado = jQuery('#select_certificados').selectedTexts();
@@ -42,7 +42,7 @@ jQuery(document).ready(function()
 		var cotizacion_seleccionado = jQuery('#select_cotizaciones').selectedTexts();
 		window.open('/equipos/cotizaciones/'+cotizacion_seleccionado[0]);
 	});
-	
+
 	// Configuramos el botón para buscar equipos.
 	jQuery('#boton_buscar_equipo').click(function()
 	{
@@ -76,12 +76,13 @@ jQuery(document).ready(function()
 						jQuery('#nombre_archivo_manual').val('');
 						jQuery('#nombre_archivo_facturas').val('');
 						jQuery('#nombre_archivo_cotizaciones').val('');
-						
+
 						jQuery('#link_ver_equipo').attr('href', '/equipos/ver/'+d_json.equipo.placa_inventario).html('#'+d_json.equipo.placa_inventario);
+						jQuery('#titulo_nombre_equipo').html(d_json.equipo.nombre);
 						jQuery('#error_placa_buscar').html('Placa de inventario encontrada.').show();
 						jQuery('#placa_inventario_equipo').val(d_json.equipo.placa_inventario);
 						jQuery('#id_equipo').val(d_json.equipo.id);
-						
+
 						if ( d_json.certificados.length > 0 )
 						{
 							// Cargamos el SelectBOX de Certificados
@@ -89,7 +90,7 @@ jQuery(document).ready(function()
 							{
 								jQuery('#select_certificados').addOption(d_json.certificados[i].id, d_json.certificados[i].nombre_archivo);
 							}
-							
+
 							jQuery('#msj_select').hide();
 							jQuery('#cuadro_eliminar_certificado').show();
 						}
@@ -99,7 +100,7 @@ jQuery(document).ready(function()
 							jQuery('#cuadro_eliminar_certificado').hide();
 							jQuery('#msj_select').show();
 						}
-						
+
 						if ( d_json.garantias.length > 0 )
 						{
 							// Cargamos el SelectBOX de Garantías
@@ -107,7 +108,7 @@ jQuery(document).ready(function()
 							{
 								jQuery('#select_garantias').addOption(d_json.garantias[i].id, d_json.garantias[i].nombre_archivo);
 							}
-							
+
 							jQuery('#msj_select_gara').hide();
 							jQuery('#cuadro_eliminar_garantia').show();
 						}
@@ -117,7 +118,7 @@ jQuery(document).ready(function()
 							jQuery('#cuadro_eliminar_garantia').hide();
 							jQuery('#msj_select_gara').show();
 						}
-						
+
 						if ( d_json.manuales.length > 0 )
 						{
 							// Cargamos el SelectBOX de Manuales
@@ -125,7 +126,7 @@ jQuery(document).ready(function()
 							{
 								jQuery('#select_manuales').addOption(d_json.manuales[i].id, d_json.manuales[i].nombre_archivo);
 							}
-							
+
 							jQuery('#msj_select_manu').hide();
 							jQuery('#cuadro_eliminar_manual').show();
 						}
@@ -135,7 +136,7 @@ jQuery(document).ready(function()
 							jQuery('#cuadro_eliminar_manual').hide();
 							jQuery('#msj_select_manu').show();
 						}
-						
+
 						if ( d_json.facturas.length > 0 )
 						{
 							// Cargamos el SelectBOX de Facturas
@@ -143,7 +144,7 @@ jQuery(document).ready(function()
 							{
 								jQuery('#select_facturas').addOption(d_json.facturas[i].id, d_json.facturas[i].nombre_archivo);
 							}
-							
+
 							jQuery('#msj_select_fact').hide();
 							jQuery('#cuadro_eliminar_factura').show();
 						}
@@ -153,7 +154,7 @@ jQuery(document).ready(function()
 							jQuery('#cuadro_eliminar_factura').hide();
 							jQuery('#msj_select_fact').show();
 						}
-						
+
 						if ( d_json.cotizaciones.length > 0 )
 						{
 							// Cargamos el SelectBOX de Cotizaciones
@@ -161,7 +162,7 @@ jQuery(document).ready(function()
 							{
 								jQuery('#select_cotizaciones').addOption(d_json.cotizaciones[i].id, d_json.cotizaciones[i].nombre_archivo);
 							}
-							
+
 							jQuery('#msj_select_coti').hide();
 							jQuery('#cuadro_eliminar_cotizacion').show();
 						}
@@ -171,7 +172,7 @@ jQuery(document).ready(function()
 							jQuery('#cuadro_eliminar_cotizacion').hide();
 							jQuery('#msj_select_coti').show();
 						}
-						
+
 						$('#cuadro_archivos').show();
 					}
 					else
@@ -185,9 +186,9 @@ jQuery(document).ready(function()
 			});
 		}
 	});
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	jQuery('#boton_certificado').click(function()
 	{
 		if ( jQuery('#nombre_archivo_certificado').val() != '' )
@@ -223,12 +224,12 @@ jQuery(document).ready(function()
 				}
 			});
 		}
-		
+
 		return false;
 	});
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	jQuery('#boton_eliminar_certificado').click(function()
 	{
 		var certificados_seleccionados = jQuery('#select_certificados').selectedValues();
@@ -260,13 +261,13 @@ jQuery(document).ready(function()
 						}
 					});
 				}
-				
+
 				if ( jQuery('#select_certificados > option').length == 0 )
 				{
 					jQuery('#cuadro_eliminar_certificado').hide();
 				}
 				jQuery('#reloj_arena_1b').hide();
-				
+
 				msj = 'Se ha eliminado el certificado.';
 				if ( certificados_seleccionados.length > 1 )
 				{
@@ -282,9 +283,9 @@ jQuery(document).ready(function()
 			}
 		}
 	});
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	$('#boton_garantia').click(function()
 	{
 		if ( jQuery('#nombre_archivo_garantia').val() != '' )
@@ -320,12 +321,12 @@ jQuery(document).ready(function()
 				}
 			});
 		}
-		
+
 		return false;
 	});
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	$('#boton_eliminar_garantia').click(function()
 	{
 		var garantias_seleccionadas = jQuery('#select_garantias').selectedValues();
@@ -357,13 +358,13 @@ jQuery(document).ready(function()
 						}
 					});
 				}
-				
+
 				if ( jQuery('#select_garantias > option').length == 0 )
 				{
 					jQuery('#cuadro_eliminar_garantia').hide();
 				}
 				jQuery('#reloj_arena_2b').hide();
-				
+
 				msj = 'Se ha eliminado la garantía.';
 				if ( garantias_seleccionadas.length > 1 )
 				{
@@ -379,9 +380,9 @@ jQuery(document).ready(function()
 			}
 		}
 	});
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	$('#boton_manual').click(function()
 	{
 		if ( jQuery('#nombre_archivo_manual').val() != '' )
@@ -419,9 +420,9 @@ jQuery(document).ready(function()
 		}
 		return false;
 	});
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	$('#boton_eliminar_manual').click(function()
 	{
 		var manuales_seleccionados = jQuery('#select_manuales').selectedValues();
@@ -453,13 +454,13 @@ jQuery(document).ready(function()
 						}
 					});
 				}
-				
+
 				if ( jQuery('#select_manuales > option').length == 0 )
 				{
 					jQuery('#cuadro_eliminar_manual').hide();
 				}
 				jQuery('#reloj_arena_3b').hide();
-				
+
 				msj = 'Se ha eliminado el manual.';
 				if ( manuales_seleccionados.length > 1 )
 				{
@@ -475,9 +476,9 @@ jQuery(document).ready(function()
 			}
 		}
 	});
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	$('#boton_factura').click(function()
 	{
 		if ( jQuery('#nombre_archivo_factura').val() != '' )
@@ -515,9 +516,9 @@ jQuery(document).ready(function()
 		}
 		return false;
 	});
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	$('#boton_eliminar_factura').click(function()
 	{
 		var facturas_seleccionados = jQuery('#select_facturas').selectedValues();
@@ -549,13 +550,13 @@ jQuery(document).ready(function()
 						}
 					});
 				}
-				
+
 				if ( jQuery('#select_facturas > option').length == 0 )
 				{
 					jQuery('#cuadro_eliminar_factura').hide();
 				}
 				jQuery('#reloj_arena_4b').hide();
-				
+
 				msj = 'Se ha eliminado la factura.';
 				if ( facturas_seleccionados.length > 1 )
 				{
@@ -571,9 +572,9 @@ jQuery(document).ready(function()
 			}
 		}
 	});
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	$('#boton_cotizacion').click(function()
 	{
 		if ( jQuery('#nombre_archivo_cotizacion').val() != '' )
@@ -611,9 +612,9 @@ jQuery(document).ready(function()
 		}
 		return false;
 	});
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	$('#boton_eliminar_cotizacion').click(function()
 	{
 		var cotizaciones_seleccionados = jQuery('#select_cotizaciones').selectedValues();
@@ -645,13 +646,13 @@ jQuery(document).ready(function()
 						}
 					});
 				}
-				
+
 				if ( jQuery('#select_cotizaciones > option').length == 0 )
 				{
 					jQuery('#cuadro_eliminar_cotizacion').hide();
 				}
 				jQuery('#reloj_arena_5b').hide();
-				
+
 				msj = 'Se ha eliminado la cotización.';
 				if ( cotizaciones_seleccionados.length > 1 )
 				{
@@ -667,9 +668,9 @@ jQuery(document).ready(function()
 			}
 		}
 	});
-	
+
 	//--------------------------------------------------------------------------
-	
+
 	jQuery('#placa_inventario_buscar').keypress(function(kp)
 	{
 		if ( kp.which == 13 )
@@ -682,6 +683,6 @@ jQuery(document).ready(function()
 		}
 		return true;
 	});
-	
+
 	//--------------------------------------------------------------------------
 });

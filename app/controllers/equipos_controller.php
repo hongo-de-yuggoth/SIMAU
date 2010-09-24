@@ -398,7 +398,8 @@ class EquiposController extends AppController
 				'equipo'=>array
 				(
 					'id'=>$equipo_info['Producto']['Prousu_Pro_id'],
-					'placa_inventario'=>$equipo_info['Producto']['prousu_placa']
+					'placa_inventario'=>$equipo_info['Producto']['prousu_placa'],
+					'nombre'=>mb_convert_case($equipo_info['Producto']['prousu_pro_nombre'], MB_CASE_TITLE, "UTF-8")
 				),
 				'encontro_equipo'=>true
 			);
