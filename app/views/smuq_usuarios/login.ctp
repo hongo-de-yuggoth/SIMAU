@@ -10,13 +10,13 @@ echo $javascript->link('smuq_usuarios/login');
       <ul>
          <li id="inicio"><a href="/">Inicio</a></li>
          <li id="login"><a href="/login">Entrar al sistema</a></li>
-         <li id="acerca_de"><a href="/solicitudes/acerca_de">Acerca de SISMLAB</a></li>
+         <li id="acerca_de"><a href="/solicitudes/acerca_de">Acerca de SISMEL</a></li>
       </ul>
 	</div>
 </div>
 
 <div id="col_derecha">
-	<div id="titulo_pagina" align="center">SISMLAB<br>Sistema de Información para el Soporte y Mantenimiento de Activos Fijos</div>
+	<div id="titulo_pagina" align="center">SISMEL<br>Sistema de Información para el Soporte y Mantenimiento de Equipos de Laboratorio</div>
 	<div id="cuadro_notificaciones" class="<?php echo $clase_notificacion; ?>" style="display: <?php echo $display_notificacion; ?>;">
 		<?php echo $mensaje_notificacion; ?>
 	</div>
