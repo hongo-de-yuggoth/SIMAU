@@ -122,6 +122,7 @@ jQuery(document).ready(function()
 
 	jQuery('#boton_buscar_solicitudes').click(function()
 	{
+		jQuery('#reloj_arena').html('<img border="0" alt="" src="/img/ajaxload.gif">').show();
 		jQuery('#busqueda').val(jQuery.trim(jQuery('#busqueda').val()));
 		var frase_busqueda = jQuery('#busqueda').val();
 		var criterio_campo = jQuery('#select_campo').val();
@@ -181,6 +182,7 @@ jQuery(document).ready(function()
 			var tipo_servicio = jQuery('#select_servicio').val();
 			buscar_solicitudes(frase_busqueda, criterio_fecha, fecha_1, fecha_2, mostrar_solicitudes, criterio_campo, tipo_servicio);
 		}
+		jQuery('#reloj_arena').hide();
 	});
 	jQuery('#select_campo').change(function()
 	{

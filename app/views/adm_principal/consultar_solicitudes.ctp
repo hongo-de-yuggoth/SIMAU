@@ -152,7 +152,10 @@ echo $javascript->link('adm_principal/consultar_solicitudes');
 				</tr>
 
 				<tr align="left">
-					<td width="100%" class="textoError" colspan="2"><div id="error_consulta" style="display:none;" /></td>
+					<td width="100%" class="textoError" colspan="2">
+						<div id="error_consulta" style="display:none;"></div>
+						<div id='reloj_arena' align='center' style='display:none;'></div>
+					</td>
 				</tr>
 
 				<tr><td height="10" /></tr>

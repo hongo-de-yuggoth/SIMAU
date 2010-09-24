@@ -86,7 +86,7 @@ function buscar_equipos(frase_busqueda, criterio_campo, criterio_dependencia, cr
 		async: false,
 		success: function(datos_json)
 		{
-			
+
 			if ( datos_json != null && datos_json.resultado == true )
 			{
 				actualizar_link_xls(frase_busqueda, criterio_campo, criterio_dependencia, criterio_usuario);
@@ -123,15 +123,15 @@ function buscar_equipo(placa)
 $(document).ready(function()
 {
 	jQuery('div.cuerpo_menu ul #'+jQuery('#opcion_seleccionada').val()).addClass('selected');
-	
+
 	cargar_select_usuarios();
 	$('#r_anio_mes').attr('checked', 'true');
-	
+
 	//--------------------------------------------------------------------------
 	// Programamos los diferentes EVENTOS.
-	
+
 	jQuery('#select_dependencia').change(cargar_select_usuarios);
-	
+
 	jQuery('#select_campo').change(function()
 	{
 		// Si se selecciona "placa de inventario"
@@ -148,7 +148,7 @@ $(document).ready(function()
 			jQuery('#select_usuario').removeAttr('disabled');
 		}
 	});
-	
+
 	$('#boton_buscar_equipos').click(function()
 	{
 		jQuery('#busqueda').val(jQuery.trim(jQuery('#busqueda').val()));
@@ -156,12 +156,14 @@ $(document).ready(function()
 		var criterio_campo = jQuery('#select_campo').val();
 		var criterio_dependencia = jQuery('#select_dependencia').val();
 		var criterio_usuario = jQuery('#select_usuario').val();
-		
 		if ( frase_busqueda == '' && criterio_campo == 'todos' && criterio_dependencia == '0' && criterio_usuario == '0' )
 		{
+			jQuery('#reloj_arena').hide();
 			return;
 		}
-		else if ( criterio_campo == 'prousu_placa' )
+
+		jQuery('#reloj_arena').html('<img border="0" alt="" src="/img/ajaxload.gif">').show();
+		if ( criterio_campo == 'prousu_placa' )
 		{
 			// Validamos "prousu_placa" en el campo BUSCAR.
 			if ( frase_busqueda == '' )
@@ -213,9 +215,10 @@ $(document).ready(function()
 			{
 				frase_busqueda = 'null';
 			}
-			
+
 			buscar_equipos(frase_busqueda, criterio_campo, criterio_dependencia, criterio_usuario);
 		}
+		jQuery('#reloj_arena').hide();
 	});
 	//--------------------------------------------------------------------------
 	jQuery('#busqueda').keypress(function(kp)

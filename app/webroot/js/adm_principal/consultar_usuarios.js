@@ -81,7 +81,7 @@ function buscar_usuario(cedula)
 				$('#total_registros').html('').hide();
 				$('#archivo_xls a').attr('href', '#');
 				$('#archivo_xls').hide();
-				
+
 				// las cargamos en la página.
 				$('#tabla_resultados tbody').html('');
 				$('#resultados').hide();
@@ -109,15 +109,15 @@ function buscar_usuario(cedula)
 jQuery(document).ready(function()
 {
 	jQuery('div.cuerpo_menu ul #'+jQuery('#opcion_seleccionada').val()).addClass('selected');
-	
+
 	//--------------------------------------------------------------------------
 	// Programamos los diferentes EVENTOS.
-	
+
 	jQuery('#select_campo').change(function()
 	{
 		jQuery('#select_dependencia [value=0]').attr('selected', 'selected');
 		jQuery('#select_tipo_usuario [value=0]').attr('selected', 'selected');
-		
+
 		// Si se selecciona "cedula del usuario"
 		if ( jQuery(this).val() == 'cedula' )
 		{
@@ -157,12 +157,13 @@ jQuery(document).ready(function()
 	//--------------------------------------------------------------------------
 	jQuery('#boton_buscar_usuarios').click(function()
 	{
+		jQuery('#reloj_arena').html('<img border="0" alt="" src="/img/ajaxload.gif">').show();
 		jQuery('#busqueda').val(jQuery.trim(jQuery('#busqueda').val()));
 		var frase_busqueda = jQuery('#busqueda').val();
 		var criterio_campo = jQuery('#select_campo').val();
 		var criterio_dependencia = jQuery('#select_dependencia').val();
 		var criterio_tipo_usuario = jQuery('#select_tipo_usuario').val();
-		
+
 		if ( criterio_campo == 'cedula' )
 		{
 			// Validamos "Usu_cedula" en el campo BUSCAR.
@@ -198,9 +199,10 @@ jQuery(document).ready(function()
 			{
 				frase_busqueda = 'null';
 			}
-			
+
 			buscar_usuarios(frase_busqueda, criterio_campo, criterio_dependencia, criterio_tipo_usuario);
 		}
+		jQuery('#reloj_arena').hide();
 	});
 	//--------------------------------------------------------------------------
 	jQuery('#busqueda').keypress(function(kp)

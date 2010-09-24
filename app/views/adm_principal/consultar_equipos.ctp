@@ -18,14 +18,14 @@ echo $javascript->link('adm_principal/consultar_equipos');
 
 <div id="col_derecha">
 	<div id="titulo_pagina" align="center">Consulta de Equipos</div>
-	
+
 	<div id='subtitulo_pagina'></div>
 	<div id="contenido_vista">
 		<form id="solicitudes" name="solicitudes" action="#" method="post" >
 			<!-- HIDDEN INPUTS -->
 			<div id="escondidos"></div>
 			<input type="hidden" value="<?php echo $opcion_seleccionada; ?>" id="opcion_seleccionada"/>
-			
+
 			<table width="100%" cellspacing="0" cellpadding="0" border="0"><tbody>
 				<tr align="left">
 					<td colspan="2">
@@ -73,26 +73,29 @@ echo $javascript->link('adm_principal/consultar_equipos');
 								</tr>
 							</tbody></table>
 						</div>
-						
+
 						<div id='div_boton_buscar' align='center' style='padding-top:25px'>
 							<input id='boton_buscar_equipos' type='button' value='Buscar equipos' />
 						</div>
 					</td>
 				</tr>
-				
+
 				<tr align="left">
-					<td width="100%" class="textoError" colspan="2"><div id="error_consulta" style="display:none;" /></td>
+					<td width="100%" class="textoError" colspan="2">
+						<div id="error_consulta" style="display:none;" ></div>
+						<div id='reloj_arena' align='center' style='display:none;'></div>
+					</td>
 				</tr>
-				
+
 				<tr><td height="10" colspan="2" /></tr>
 				<tr align="left" ><td class='linea' height='1' colspan="2" ></td></tr>
 				<tr><td height="10" colspan="2" /></tr>
-				
+
 				<tr align="left">
 					<td width="50%"><div id="total_registros" style="display:none;" /></td>
 					<td width="50%" align="right"><div id="archivo_xls" style="display:none;"><a href='#'><?php echo $html->image('excel.gif', array('border'=>0, 'alt'=>'Exportar a Excel', 'title'=>'Exportar a Excel')); ?></a></div></td>
 				</tr>
-				
+
 				<tr align="left">
 					<td colspan="2">
 						<div id='resultados' style='display:none; overflow:auto; width:580px; height: 400px;'>
