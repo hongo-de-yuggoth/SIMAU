@@ -48,7 +48,7 @@ function telefono_vacio()
 jQuery(document).ready(function()
 {
 	jQuery('div.cuerpo_menu ul #'+jQuery('#opcion_seleccionada').val()).addClass('selected');
-	 
+
 	jQuery('#nombre').keypress(config_input);
 	jQuery('#login').keypress(config_input);
 	jQuery('#clave').keypress(config_input);
@@ -56,7 +56,7 @@ jQuery(document).ready(function()
 	jQuery('#email').keypress(config_input);
 	jQuery('#telefono').keypress(config_input);
 	jQuery('#cargo').keypress(config_input);
-	
+
 	//--------------------------------------------------------------------------
 	// Programamos los diferentes EVENTOS.
 	jQuery('#tipo_usuario').change(function()
@@ -73,7 +73,7 @@ jQuery(document).ready(function()
 			jQuery('#id_dependencia').removeAttr('disabled');
 		}
 	});
-	
+
 	// Configuramos el boton para buscar usuarios.
 	jQuery('#boton_buscar_usuario').click(function()
 	{
@@ -96,7 +96,7 @@ jQuery(document).ready(function()
 				success: function(resultado)
 				{
 					jQuery('#escondidos').html(resultado);
-					
+
 					// Si Encontró el usuario
 					if ( jQuery('#encontro').val() == 'true' )
 					{
@@ -139,7 +139,7 @@ jQuery(document).ready(function()
 						jQuery('#telefono').val(jQuery('#telefono_usuario').val());
 						jQuery('#cargo').val(jQuery('#cargo_usuario').val());
 						jQuery('#cedula').html(jQuery('#cedula_usuario').val());
-						
+
 						jQuery('#error_cedula_buscar').html('Cédula encontrada.').show();
 						jQuery('#error_nombre').html('').hide();
 						jQuery('#error_login').html('').hide();
@@ -154,7 +154,7 @@ jQuery(document).ready(function()
 					{
 						// Escondemos DIV de info_usuario.
 						jQuery('#info_usuario').slideUp('slow');
-						
+
 						jQuery('#nombre').html('');
 						jQuery('#cedula').html('');
 						jQuery('#login').html('');
@@ -162,7 +162,7 @@ jQuery(document).ready(function()
 						jQuery('#email').val('');
 						jQuery('#telefono').val('');
 						jQuery('#cargo').val('');
-						
+
 						jQuery('#error_cedula_buscar').html('No se encontró un usuario con esa cédula.').show();
 						jQuery('#usuario').attr('action', '#');
 					}
@@ -170,14 +170,14 @@ jQuery(document).ready(function()
 			});
 		}
 	});
-	
+
 	// Validamos los datos del formulario.
 	jQuery('#usuario').submit(function()
 	{
 		var tipo_usr = jQuery('#tipo_usuario_usuario').val();
 		jQuery('#email').val(jQuery.trim(jQuery('#email').val()));
 		jQuery('#cargo').val(jQuery.trim(jQuery('#cargo').val()));
-		
+
 		ecl = email_con_logica();
 		cv = cargo_vacio();
 		tv = telefono_vacio();
@@ -186,7 +186,7 @@ jQuery(document).ready(function()
 			// Si es de CENCOS solo validamos el email y el cargo
 			if ( ecl==true && cv==false && tv==false )
 			{
-				//jQuery('#cedula_usuario').attr('name', 'data[SmuqUsuario][cedula]');
+				jQuery('#cedula_usuario').attr('name', 'data[SmuqUsuario][cedula]');
 				jQuery('#email').attr('name', 'data[SmuqUsuario][email]');
 				jQuery('#telefono').attr('name', 'data[SmuqUsuario][telefono]');
 				jQuery('#cargo').attr('name', 'data[SmuqUsuario][cargo]');
@@ -202,7 +202,7 @@ jQuery(document).ready(function()
 			nv = nombre_vacio();
 			lcl = login_con_logica('login_usuario', 'login');
 			clv = claves_correctas();
-			
+
 			if ( nv==false && lcl==true && clv==true && ecl==true && cv==false && tv==false )
 			{
 				// Si hay una clave nueva, activamos variable data[][].
@@ -219,7 +219,7 @@ jQuery(document).ready(function()
 				jQuery('#cargo').attr('name', 'data[SmuqUsuario][cargo]');
 				jQuery('#estado_usuario').attr('name', 'data[SmuqUsuario][activo]');
 				jQuery('#usuario').attr('action', '/smuq_usuarios/modificar');
-				
+
 				return true;
 			}
 		}
@@ -238,6 +238,6 @@ jQuery(document).ready(function()
 		}
 		return true;
 	});
-	
+
 	//--------------------------------------------------------------------------
 });
