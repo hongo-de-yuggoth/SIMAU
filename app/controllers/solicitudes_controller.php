@@ -19,7 +19,7 @@ class SolicitudesController extends AppController
 	var $encabezado_pdf =
 	'<table width="100%%" cellspacing="0" cellpadding="3" border="1"><tbody>
 		<tr align="left">
-			<td width="85" align="center"><img src="/app/webroot/img/logouq.gif" alt="" /></td>
+			<td width="85" align="center"><img src="http://smuqlab.uniquindio.edu.co/img/logouq.gif" alt="" /></td>
 			<td width="*" colspan="3" align="right"><br/><br/><b>UNIVERSIDAD DEL QUINDIO<br/>SISTEMA INTEGRADO DE GESTIÓN</b></td>
 		</tr>
 		<tr align="right">
@@ -815,9 +815,6 @@ class SolicitudesController extends AppController
 		$id_solicitud = $this->Session->read('Email.id_solicitud');
 		$email_solicitante = $this->Session->read('Email.email_solicitante');
 
-		//$id_solicitud = 2;
-		//$email_solicitante = 'dementriomacias@hotmail.com';
-
 		$this->Solicitud->recursive = 1;
 		$solicitud_info = $this->Solicitud->read(null, $id_solicitud);
 		if ( !empty($solicitud_info) )
@@ -890,11 +887,18 @@ class SolicitudesController extends AppController
 
 			if ( !empty($equipo_info) )
 			{
+				$ts = split(',', $solicitud_info['Solicitud']['tipo_servicio']);
+				$listado = '';
+				for ( $i=0; $i < count($ts); $i++ )
+				{
+					$listado .= '<li>'.$this->tipo_servicio[$ts[$i]].'</li>';
+				}
+				$solicitud_info['Solicitud']['tipo_servicio'] = '<ul>'.$listado.'</ul>';
+
 				$tmp = split(' ', $solicitud_info['Solicitud']['created']);
 				$fecha = $tmp[0];
 				list($anio, $mes, $dia) = split('-', $fecha);
 				$solicitud_info['Solicitud']['fecha'] = $this->Tiempo->fecha_espaniol(date('Y-n-j-N', mktime(0,0,0,$mes, $dia, $anio)));
-				$solicitud_info['Solicitud']['tipo_servicio'] = $this->tipo_servicio[$solicitud_info['Solicitud']['tipo_servicio']];
 				$solicitud_info['CentroCosto']['Cencos_nombre'] = mb_convert_case($solicitud_info['CentroCosto']['Cencos_nombre'], MB_CASE_TITLE, "UTF-8");
 				$solicitud_info['Usuario']['Usu_nombre'] = mb_convert_case($solicitud_info['Usuario']['Usu_nombre'], MB_CASE_TITLE, "UTF-8");
 				$equipo_info['Producto']['prousu_pro_nombre'] = mb_convert_case($equipo_info['Producto']['prousu_pro_nombre'], MB_CASE_TITLE, "UTF-8");
@@ -919,7 +923,7 @@ class SolicitudesController extends AppController
 					$solicitud_info['Solicitud']['contratista'] = $contratista_info['SmuqUsuario']['nombre'];
 				}
 
-				$this->set('encabezado_pdf', $this->encabezado_pdf);
+				$this->set('encabezado_pdf', sprintf($this->encabezado_pdf, $id_solicitud));
 				$this->set('solicitud', $solicitud_info);
 				$this->set('equipo', $equipo_info);
 				$this->set('usuario', array('cedula'=>$this->Session->read('Usuario.cedula'),
